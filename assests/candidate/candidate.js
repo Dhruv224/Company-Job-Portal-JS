@@ -83,19 +83,24 @@ document.addEventListener("DOMContentLoaded", () => {
     let allJobsList = document.getElementById("all-jobs-list");
 
     const displayJobs = (job) => {
+        // creating job title
         let title = document.createElement("h1");
         title.textContent = job.title;
 
+        // creating job description
         let desc = document.createElement("p");
         desc.textContent = job.desc;
 
+        // creating job type
         let type = document.createElement("h3");
         type.textContent = job.type;
 
+        // creating button for Apply
         let button = document.createElement("button");
         button.textContent = "Apply";
         button.id = "btn";
 
+        // creating job card
         let jobCard = document.createElement("div");
         jobCard.classList.add("job-card");
         jobCard.appendChild(title);
@@ -103,11 +108,42 @@ document.addEventListener("DOMContentLoaded", () => {
         jobCard.appendChild(type);
         jobCard.appendChild(button);
         
+        // adding job card to DOM
         allJobsList.appendChild(jobCard);
     }
 
-    let jobs = JSON.parse(localStorage.getItem("jobs"));
+    // displaying jobs when user visits the candidate page
+    let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+
+    if(jobs.length === 0){
+        allJobsList.innerHTML = "<h1>No Job Found!!</h1>"
+        return;
+    }
     jobs.forEach((job) => {
         displayJobs(job);
+    });
+
+    document.getElementById("search").addEventListener("input", (event) => {
+        // taking value from user input 
+        let searchQuery = event.target.value.toLowerCase();
+
+        // getting all the jobs
+        let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+
+        // filtering out jobs
+        let updatedJobs = jobs.filter((job) => {
+            return job.title.toLowerCase().includes(searchQuery) || job.type.toLowerCase().includes(searchQuery);
+        });
+
+        // condition if there is no job for particular search query
+        if(updatedJobs.length === 0){
+            allJobsList.innerHTML = "<h1>No Job Found!!</h1>"
+            return;
+        }
+
+        allJobsList.innerHTML = "";
+        updatedJobs.forEach((job) => {
+            displayJobs(job);
+        })
     });
 });
