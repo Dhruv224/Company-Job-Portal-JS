@@ -23,8 +23,14 @@
     margin-bottom: 20px;
 }
 
+#username-div, #password-div{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
 #username, #password{
-    margin-top: 10px;
+    margin-top: 4px;
     padding: 5px 8px;
     border: 2px solid rgb(31, 31, 227);
 }
@@ -42,4 +48,8 @@
 #btn:hover{
     background-color: white;
     color: rgb(31, 31, 227);
+}
+
+#already-acc{
+    margin-top: 10px;
 }
