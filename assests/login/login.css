@@ -1,0 +1,45 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login{
+    padding: 10px;
+    border: 2px solid rgb(31, 31, 227);
+}
+
+#heading{
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+#username, #password{
+    margin-top: 10px;
+    padding: 5px 8px;
+    border: 2px solid rgb(31, 31, 227);
+}
+
+#btn{
+    margin-top: 10px;
+    padding: 5px 8px;
+    width: 100%;
+    border: 2px solid blue;
+    color: white;
+    background-color: rgb(31, 31, 227);
+    transition: all 0.5s;
+}
+
+#btn:hover{
+    background-color: white;
+    color: rgb(31, 31, 227);
+}
