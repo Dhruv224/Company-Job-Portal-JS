@@ -4,13 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home page</title>
+    <link rel="stylesheet" href="cabdidate.css">
     <script src="candidate.js" defer></script>
 </head>
 <body>
     <div>
         <nav>
-            Candidate page
+            <h3 class="title">Candidate Page</h3>
+            <ul class="middle">
+                <li>All Jobs</li>
+                <li>Applied Jobs</li>
+            </ul>
+            <button type="submit" id="btn" onclick="logout()">Logout</button>
         </nav>
+
+        <div id="all-jobs-list"></div>
     </div>
+
+    <script>
+        const logout = () => {
+            localStorage.removeItem("isAuthenticated");
+            window.location.href = "../login/login.html"
+            return;
+        }
+    </script>
 </body>
 </html>

@@ -42,6 +42,8 @@ form.addEventListener("submit", (event) => {
 
         localStorage.setItem("isAuthenticated", JSON.stringify(newUser));
 
+        window.location.href = "../candidate/candidate.html";
+
         form.reset();
     }
 
