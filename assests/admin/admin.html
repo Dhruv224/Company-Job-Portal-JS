@@ -13,14 +13,19 @@
         <nav>
             <h3 class="title">Admin Page</h3>
             <ul class="middle">
-                <li onclick="loadcontent('./addjob/addjob.html')">Add Job</li>
-                <li onclick="loadcontent('./postedjob/postedjob.html')">Posted Jobs</li>
+                <li onclick="loadcontent('./addjob/addjob.html', addjob)">Add Job</li>
+                <!-- <li onclick="loadcontent('./addjob/addjob.html');addjob();">Add Job</li> -->
+                <li onclick="loadcontent('./postedjob/postedjob.html', postedjob)">Posted Job</li>
+                <!-- <li onclick="postedjob()">Posted Jobs</li> -->
             </ul>
             <button type="submit" id="btn" onclick="logout(event)">Logout</button>
 
         </nav>
 
-        <div id="dynamic-content"><h1>testcontent</h1></div>
+        <div id="dynamic-content"> 
+             
+    
+     </div>
     </div>
 </body>
 </html>
