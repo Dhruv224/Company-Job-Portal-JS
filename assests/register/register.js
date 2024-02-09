@@ -1,19 +1,3 @@
-// let users = [
-//     {
-
-//         username: "dp",
-//         password: "dp",
-//        
-//     },
-//     {
-
-//         username: "vp",
-//         password: "vp",
-//        
-//     },
-// ];
-
-
 const form = document.getElementById("register-form")
 
 form.addEventListener("submit", (event) => {
