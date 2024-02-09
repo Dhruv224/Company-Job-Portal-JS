@@ -43,7 +43,7 @@ nav{
     scale: 1.1;
 }
 
-#btn{
+.btn, #btn{
     padding: 5px 8px;
     border: 2px solid blue;
     color: white;
@@ -53,7 +53,7 @@ nav{
     cursor: pointer;
 }
 
-#btn:hover{
+.btn:hover, #btn:hover{
     background-color: white;
     color: rgb(31, 31, 227);
 }
@@ -113,4 +113,55 @@ nav{
     font-size: 16px;
     color: rgb(73, 71, 71);
     margin-bottom: 10px;
+}
+
+#pop-up{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+}
+
+.pop-up{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+}
+
+#pop-up-form{
+    padding: 10px;
+    border: 2px solid rgb(31, 31, 227);
+    width: min(300px, 50vw);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#pop-up-username, #pop-up-email, #pop-up-pdf-file{
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    color: white;
+}
+
+#username, #email, #pdf-file{
+    margin-top: 4px;
+    padding: 5px 8px;
+    border: 2px solid rgb(31, 31, 227);
+    background-color: white;
+}
+
+#pop-up-form>#btn{
+    margin-top: -10px !important;
+    width: 100%;
 }
