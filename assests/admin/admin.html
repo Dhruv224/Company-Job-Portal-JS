@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="./addjob/addjob.css">
+    <script src="admin.js" defer></script>
+</head>
+<body>
+    <div>
+        <nav>
+            <h3 class="title">Admin Page</h3>
+            <ul class="middle">
+                <li onclick="loadcontent('./addjob/addjob.html')">Add Job</li>
+                <li onclick="loadcontent('./postedjob/postedjob.html')">Posted Jobs</li>
+            </ul>
+            <button type="submit" id="btn" onclick="logout(event)">Logout</button>
+
+        </nav>
+
+        <div id="dynamic-content"><h1>testcontent</h1></div>
+    </div>
+</body>
+</html>
