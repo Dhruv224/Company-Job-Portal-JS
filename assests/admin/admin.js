@@ -1,9 +1,8 @@
 //logic for logout button
-function logout(event){
-event.preventDefault();
-console.log("clicked");
-window.location.href = "../login/login.html";
-
+const logout = () => {
+    localStorage.removeItem("isAuthenticated");
+    window.location.href = "../login/login.html"
+    return;
 }
 
 //this function creates the new job fro admin to show
