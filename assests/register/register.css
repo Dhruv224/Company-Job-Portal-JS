@@ -16,8 +16,7 @@
 .login{
     padding: 10px;
     border: 2px solid rgb(31, 31, 227);
-    width:50%;
-    
+    width: min(300px, 50vw);
 }
 
 #heading{

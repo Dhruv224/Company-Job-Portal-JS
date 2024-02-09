@@ -1,19 +1,3 @@
-// let users = [
-//     {
-
-//         username: "dp",
-//         password: "dp",
-//        
-//     },
-//     {
-
-//         username: "vp",
-//         password: "vp",
-//        
-//     },
-// ];
-
-
 const form = document.getElementById("register-form")
 
 form.addEventListener("submit", (event) => {
@@ -41,6 +25,8 @@ form.addEventListener("submit", (event) => {
         localStorage.setItem("users", JSON.stringify(users));
 
         localStorage.setItem("isAuthenticated", JSON.stringify(newUser));
+
+        window.location.href = "../candidate/candidate.html";
 
         form.reset();
     }

@@ -42,6 +42,7 @@
     border: 2px solid blue;
     color: white;
     background-color: rgb(31, 31, 227);
+    border-radius: 4px;
     transition: all 0.5s;
 }
 

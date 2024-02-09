@@ -4,13 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home page</title>
+    <link rel="stylesheet" href="cabdidate.css">
     <script src="candidate.js" defer></script>
 </head>
 <body>
     <div>
         <nav>
-            Candidate page
+            <h3 class="title">Candidate Page</h3>
+            <ul class="middle">
+                <li id="allJobs">All Jobs</li>
+                <li id="applidJobs">Applied Jobs</li>
+            </ul>
+
+            <button type="submit" id="btn" onclick="logout()">Logout</button>
         </nav>
+
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Search by title or type of job here..." autofocus>
+        </div>
+
+        <div id="all-jobs-list"></div>
+            
+        <div id="pop-up">
+            <div class="pop-up">
+                <form id="pop-up-form">
+                    <div id="pop-up-username">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Enter Username" >
+                    </div>
+                    <div id="pop-up-email">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Enter email" >
+                    </div>
+                    <div id="pop-up-pdf-file">
+                        <label for="pdf-file">File</label>
+                        <input type="file" id="pdf-file" name="pdf-file" accept=".pdf"><br><br>
+                    </div>
+                    <button type="submit" id="btn">Regiter Job</button>
+                </form>
+            </div>
+        </div>
     </div>
+
+    <script>
+        const logout = () => {
+            localStorage.removeItem("isAuthenticated");
+            window.location.href = "../login/login.html"
+            return;
+        }
+
+        // const jobDetailSubmited = () => {
+        //     window.location.href = "candidate.html";
+        //     return;
+        // }
+    </script>
 </body>
 </html>
