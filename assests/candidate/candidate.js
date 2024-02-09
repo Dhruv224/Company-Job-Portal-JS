@@ -112,8 +112,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             return user.id === userId;
         });
 
-        console.log(userApplidOrNot);
-
         (userApplidOrNot !== -1) ? button.textContent = "Applied" : button.textContent = "Apply";
 
         if(button.textContent === "Applied"){
@@ -191,7 +189,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // filtering out jobs based on appliedBy field in job object
         let updatedJobs = jobs.filter((job) => {
-            return job.appliedBy.indexOf(userId) !== -1;
+            let exists = job.appliedBy.findIndex((user) => user.id === userId);
+            return exists !== -1;
         });
 
         if(updatedJobs.length === 0){
