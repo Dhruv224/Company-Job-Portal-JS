@@ -1,37 +1,46 @@
-const form = document.getElementById("register-form")
+const form = document.getElementById("register-form");
 
 form.addEventListener("submit", (event) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    // getting the username and password
-    let username = document.getElementById("username")?.value;
-    let password = document.getElementById("password")?.value;
-    let cpassword = document.getElementById("cpassword")?.value;
+  // getting the username and password
+  let username = document.getElementById("username")?.value;
+  let password = document.getElementById("password")?.value;
+  let cpassword = document.getElementById("cpassword")?.value;
 
-    // checking password and confirm password
-    if (password != cpassword) {
-        alert("passwords do not match ");
-    }
-    else {
-        let users = JSON.parse(localStorage.getItem("users")) || [];
+  if(username.toString().trim() === "" || password.toString().trim() === "" || cpassword.toString().trim() === ""){
+    alert("Please enter username, password and confirm password");
+    return;
+  }
 
-        let newUser = {
-            id: users.length,
-            username: username,
-            password: password,
-        }
+  if (password != cpassword) {
+    alert("Password and confirm password doesn't match");
+    return;
+  }
 
-        users.push(newUser);
-        localStorage.setItem("users", JSON.stringify(users));
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  let userExist = users.findIndex((currUser) => {
+    return currUser.username === username;
+  });
 
-        localStorage.setItem("isAuthenticated", JSON.stringify(newUser));
+  if((userExist !== -1) || username === "Admin"){
+    alert("User already exists");
+    form.reset();
+    return;
+  }
 
-        window.location.href = "../candidate/candidate.html";
+  let newUser = {
+    id: users.length,
+    username: username,
+    password: password,
+  };
 
-        form.reset();
-    }
+  users.push(newUser);
+  localStorage.setItem("users", JSON.stringify(users));
 
+  localStorage.setItem("isAuthenticated", JSON.stringify(newUser));
+
+  window.location.href = "../candidate/candidate.html";
+
+  form.reset();
 });
-
-
-
