@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let allJobsList = document.getElementById("all-jobs-list");
     let jobId = null;
+    let isAppliedJob = false;
 
     const applyBtn = (event) => {
         jobId = event.target.id;
@@ -90,39 +91,71 @@ document.addEventListener("DOMContentLoaded", (event) => {
         document.body.style.overflow = 'hidden';
     }
 
+    const withdrawBtn = (event) => {
+        jobId = event.target.id;
+
+        let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+        let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
+
+        let updatedJobs = jobs.map((job) => {
+            let updatedUsers = [];
+            if(Number(jobId) === Number(job.jobId)){
+                updatedUsers = job.appliedBy.filter((currUser) => {
+                    return currUser.id !== user.id;
+                });
+                job.appliedBy = updatedUsers;
+            }
+
+            return job;
+        });
+
+        localStorage.setItem("jobs", JSON.stringify(updatedJobs));
+
+        allJobsList.innerHTML = "";
+        updatedJobs.forEach((job) => {
+            displayJobs(job);
+        })
+    }
+
     const displayJobs = (job) => {
-        // creating job title
         let title = document.createElement("h1");
         title.textContent = job.title;
 
-        // creating job description
         let desc = document.createElement("p");
         desc.textContent = job.desc;
 
-        // creating job type
         let type = document.createElement("h3");
         type.textContent = job.type;
 
-        // creating button for Apply
         let button = document.createElement("button");
-        // console.log(job.appliedBy);
 
-        let userId = JSON.parse(localStorage.getItem("isAuthenticated")).id || null;
-        let userApplidOrNot = job.appliedBy.findIndex((user) => {
-            return user.id === userId;
+        let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
+        let userApplidOrNot = job.appliedBy.findIndex((currUser) => {
+            return currUser.id === user?.id;
         });
-
-        (userApplidOrNot !== -1) ? button.textContent = "Applied" : button.textContent = "Apply";
-
-        if(button.textContent === "Applied"){
-            button.disabled = true
-        }
-
+        
         button.classList.add("btn");
         button.id = job.jobId;
 
-        // adding eventListener on apply button
+        let dltBtn = document.createElement("button");
+        
+        if(userApplidOrNot !== -1){
+            button.style.display = "none"
+            // button.textContent = "Applied";
+            // button.disabled = true;
+            // button.classList.add("disabled");
+            
+            dltBtn.textContent = "withdraw";
+            dltBtn.classList.add("btn");
+            dltBtn.classList.add("withdraw");
+            dltBtn.id = job.jobId;
+        }else{
+            button.textContent = "Apply"
+        }
+
+        // adding eventListener on apply and withdraw button
         button.addEventListener("click", applyBtn);
+        dltBtn.addEventListener("click", withdrawBtn);
 
         // creating job card
         let jobCard = document.createElement("div");
@@ -131,6 +164,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         jobCard.appendChild(desc);
         jobCard.appendChild(type);
         jobCard.appendChild(button);
+        jobCard.appendChild(dltBtn);
         
         // adding job card to DOM
         allJobsList.appendChild(jobCard);
@@ -146,6 +180,37 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
 
     document.getElementById("search").addEventListener("input", (event) => {
+        if(isAppliedJob){
+             // taking value from user input 
+            let searchQuery = event.target.value.toLowerCase();
+
+            // getting all the jobs
+            let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+            let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
+
+            // filtering out jobs
+            let mapArr = jobs.filter((job) => {
+                let appliedJobOrNot = job.appliedBy.findIndex((currUser) => currUser.id === user?.id);
+                return appliedJobOrNot !== -1;
+            });
+
+            let updatedJobs = mapArr.filter((job) => {
+                return job.title.toLowerCase().includes(searchQuery) || job.type.toLowerCase().includes(searchQuery);
+            });
+
+            // condition if there is no job for particular search query
+            if(updatedJobs.length === 0){
+                allJobsList.innerHTML = "<h1>No Job Found!!</h1>"
+                return;
+            }
+
+            allJobsList.innerHTML = "";
+            updatedJobs.forEach((job) => {
+                displayJobs(job);
+            })
+
+            return;
+        }
         // taking value from user input 
         let searchQuery = event.target.value.toLowerCase();
 
@@ -170,6 +235,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
 
     document.getElementById("allJobs").addEventListener("click", () => {
+        isAppliedJob = false;
         let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
         if(jobs.length === 0){
             allJobsList.innerHTML = "<h1>No Job Found!!</h1>"
@@ -181,15 +247,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
     })
 
     document.getElementById("applidJobs").addEventListener("click", () => {
+        isAppliedJob = true;
         // getting all the jobs
         let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
 
         // getting userId 
-        let userId = JSON.parse(localStorage.getItem("isAuthenticated")).id || null;
+        let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
 
         // filtering out jobs based on appliedBy field in job object
         let updatedJobs = jobs.filter((job) => {
-            let exists = job.appliedBy.findIndex((user) => user.id === userId);
+            let exists = job.appliedBy.findIndex((currUser) => currUser.id === user?.id);
             return exists !== -1;
         });
 
@@ -220,13 +287,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
             return;
           }
 
-        let userId = JSON.parse(localStorage.getItem("isAuthenticated")).id || null;
+        let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
+        // console.log(userId);
 
         let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
 
         
         let newObj = {
-            id: userId,
+            id: user?.id,
             username: username.value,
             email: email.value,
             pdfFile: pdfFile.value

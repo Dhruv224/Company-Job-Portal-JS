@@ -1,6 +1,6 @@
 let users = [
     {
-        id: 1, 
+        id: 0, 
         username: "dp",
         password: "dp",
     },
@@ -10,7 +10,7 @@ let users = [
         password: "vp",
     },
 ];
-localStorage.setItem("users", JSON.stringify(users));
+// localStorage.setItem("users", JSON.stringify(users));
 
     const form = document.getElementById("login-form");
 

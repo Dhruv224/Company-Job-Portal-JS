@@ -58,6 +58,20 @@ nav{
     color: rgb(31, 31, 227);
 }
 
+.disabled{
+    cursor: not-allowed;
+}
+
+.withdraw{
+    background-color: tomato;
+    border: 2px solid tomato;
+}
+
+.withdraw:hover{
+    background-color: white;
+    color: tomato;
+}
+
 .search-container{
     display: flex;
     justify-content: center;
