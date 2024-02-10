@@ -1,4 +1,4 @@
-export default users = [
+let users = [
     {
 
         username: "dp",

@@ -101,7 +101,7 @@ let jobs = [
   },
 ];
 
-localStorage.setItem("jobs", JSON.stringify(jobs));
+// localStorage.setItem("jobs", JSON.stringify(jobs));
 
 document.addEventListener("DOMContentLoaded", (event) => {
   event.preventDefault();
@@ -113,28 +113,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
   let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
 
   let allJobsList = document.getElementById("all-jobs-list");
+  let langDropDown = document.getElementById("lang-drop-down");
+  let salaryDropDown = document.getElementById("salary-drop-down");
+
   let jobId = null;
   let isAppliedJob = false;
   let languageType = "All";
-  let minSalary = jobs.reduce((min, job) => {
-    return job.salary < min ? job.salary : min;
-  }, Infinity);
-  let maxSalary = jobs.reduce((max, job) => {
-    return job.salary > max ? job.salary : max;
-  }, -Infinity);
+  let minSalary = jobs.reduce((min, job) => Math.min(min, job.salary), Infinity);
+  let maxSalary = jobs.reduce((max, job) => Math.max(max, job.salary), -Infinity);
   let salaryVal = "All";
 
-  const applyBtn = (event) => {
+  // Event Listener for click event on Apply button on job card
+  const applyBtnFunc = (event) => {
     jobId = event.target.id;
-    let popUp = document.getElementById("pop-up");
-    popUp.style.display = "block";
+    document.getElementById("pop-up").style.display = "block";
     document.documentElement.scrollTop = 0;
     document.body.style.overflow = "hidden";
-
     let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
     document.getElementById("username").value = user.username;
   };
 
+  // Event Listener for click event on Withraw button on job card
   const withdrawBtn = (event) => {
     jobId = event.target.id;
 
@@ -142,12 +141,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
 
     let updatedJobs = jobs.map((job) => {
-      let updatedUsers = [];
       if (Number(jobId) === Number(job.jobId)) {
-        updatedUsers = job.appliedBy.filter((currUser) => {
+        job.appliedBy = job.appliedBy.filter((currUser) => {
           return currUser.id !== user.id;
         });
-        job.appliedBy = updatedUsers;
       }
 
       return job;
@@ -161,160 +158,88 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
   };
 
+  // Displaying job one by one
   const displayJobs = (job) => {
-    let title = document.createElement("h1");
-    title.innerHTML = job.title;
+    let jobCard = document.createElement("div");
+    jobCard.classList.add("job-card");
 
-    let desc = document.createElement("p");
-    desc.innerHTML = "<span>Desc: </span>" + job.type + job.desc;
+    jobCard.innerHTML = `
+            <h1>${job.title}</h1>
+            <p><span>Desc: </span>${job.type}${job.desc}</p>
+            <p><span>Type: </span>${job.type}</p>
+            <p><span>Salary: </span>Rs.${job.salary}</p>
+            <p><span>Location: </span>${job.location}</p>
+            <p><span>Company: </span>${job.companyName}</p>
+        `;
 
-    let type = document.createElement("p");
-    type.innerHTML = "<span>Type: </span>" + job.type;
+    let applyBtn = document.createElement("button");
+    applyBtn.textContent = "Apply";
+    applyBtn.classList.add("btn");
+    applyBtn.id = job.jobId;
+    applyBtn.addEventListener("click", applyBtnFunc);
+    jobCard.appendChild(applyBtn);
 
-    let salary = document.createElement("p");
-    salary.innerHTML = "<span>Salary: </span>Rs." + job.salary;
-
-    let location = document.createElement("p");
-    location.innerHTML = "<span>Location: </span>" + job.location;
-
-    let companyName = document.createElement("p");
-    companyName.innerHTML = "<span>Company: </span>" + job.companyName;
-
-    let button = document.createElement("button");
+    let dltBtn = document.createElement("button");
+    dltBtn.textContent = "withdraw";
+    dltBtn.classList.add("btn");
+    dltBtn.classList.add("withdraw");
+    dltBtn.id = job.jobId;
+    dltBtn.addEventListener("click", withdrawBtn);
+    jobCard.appendChild(dltBtn);
 
     let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
     let userApplidOrNot = job?.appliedBy?.findIndex((currUser) => {
       return currUser.id === user?.id;
     });
 
-    button.classList.add("btn");
-    button.id = job.jobId;
-
-    let dltBtn = document.createElement("button");
-
     if (userApplidOrNot !== -1) {
-      button.style.display = "none";
-      // button.textContent = "Applied";
-      // button.disabled = true;
-      // button.classList.add("disabled");
-
-      dltBtn.textContent = "withdraw";
-      dltBtn.classList.add("btn");
-      dltBtn.classList.add("withdraw");
-      dltBtn.id = job.jobId;
+      applyBtn.style.display = "none";
     } else {
-      button.textContent = "Apply";
+      dltBtn.style.display = "none";
     }
 
-    // adding eventListener on apply and withdraw button
-    button.addEventListener("click", applyBtn);
-    dltBtn.addEventListener("click", withdrawBtn);
-
-    // creating job card
-    let jobCard = document.createElement("div");
-    jobCard.classList.add("job-card");
-    jobCard.appendChild(title);
-    jobCard.appendChild(desc);
-    jobCard.appendChild(type);
-    jobCard.appendChild(salary);
-    jobCard.appendChild(location);
-    jobCard.appendChild(companyName);
-
-    jobCard.appendChild(button);
-    jobCard.appendChild(dltBtn);
-
-    // adding job card to DOM
     allJobsList.appendChild(jobCard);
   };
 
   // displaying jobs when user visits the candidate page
-  jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-  console.log(jobs);
-  let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
+  const displayJobsOnLoad = () => {
+    jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+    let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
 
-  document.getElementsByClassName("title")[0].innerHTML = `Welcome, <span>${
-    user.username.charAt(0).toUpperCase() + user.username.slice(1)
-  }</span> `;
-  if (jobs.length === 0) {
-    allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
+    document.getElementsByClassName("title")[0].innerHTML = `Welcome, <span>${user.username.charAt(0).toUpperCase() + user.username.slice(1)}</span> `;
+
+    if (jobs.length === 0) {
+        allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
+    }
+
+    jobs.forEach((job) => {
+        displayJobs(job);
+    });
   }
-  jobs.forEach((job) => {
-    displayJobs(job);
-  });
+  displayJobsOnLoad();
 
-  let langDropDown = document.getElementById("lang-drop-down");
-  const languageTypeAddToDropDown = (languageType) => {
-    let option = document.createElement("option");
-    option.value = languageType;
-    option.textContent = languageType;
-
-    langDropDown.appendChild(option);
-  };
-
-  let salaryDropDown = document.getElementById("salary-drop-down");
-  let salaryIncrement = (maxSalary - minSalary) / 5;
-  for (let i = 0; i < 5; i++) {
-    let option = document.createElement("option");
-    let min = minSalary + i * salaryIncrement;
-    let max = min + salaryIncrement;
-    option.textContent = `Rs. ${min} - Rs. ${max}`;
-    option.value = `${min},${max}`;
-    salaryDropDown.appendChild(option);
-  }
-
+  // Search functionality based on title, company and type of job and filter functionality based on salary and job type
   const handleSearch = (event) => {
-    salaryVal = salaryVal.toString();
-    salaryVal = salaryVal.split(",");
+    salaryVal = salaryVal.toString().split(",");
     let currMinSalary = salaryVal[0];
     let currMaxSalary = salaryVal[1];
+
+    let searchQuery = event?.target?.value.toLowerCase() || "";
+    let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+    let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
+
+    let mapArr = jobs;
+
     if (isAppliedJob) {
-      // taking value from user input
-      let searchQuery = event?.target?.value.toLowerCase() || "";
-
-      // getting all the jobs
-      let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-      let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
-
-      // filtering out jobs
-      let mapArr = jobs.filter((job) => {
+     mapArr = jobs.filter((job) => {
         let appliedJobOrNot = job.appliedBy.findIndex(
           (currUser) => currUser.id === user?.id
         );
         return appliedJobOrNot !== -1;
       });
-
-      let updatedJobs = mapArr.filter((job) => {
-        return (
-          (currMinSalary === "All" ||
-            (job.salary >= currMinSalary && job.salary <= currMaxSalary)) &&
-          (languageType === "All" || job.type === languageType) &&
-          (job.title.toLowerCase().includes(searchQuery) ||
-            job.companyName.toLowerCase().includes(searchQuery) ||
-            job.type.toLowerCase().includes(searchQuery))
-        );
-      });
-
-      // condition if there is no job for particular search query
-      if (updatedJobs.length === 0) {
-        allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
-        return;
-      }
-
-      allJobsList.innerHTML = "";
-      updatedJobs.forEach((job) => {
-        displayJobs(job);
-      });
-
-      return;
-    }
-    // taking value from user input
-    let searchQuery = event?.target?.value.toLowerCase() || "";
-
-    // getting all the jobs
-    let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-
-    // filtering out jobs
-    let updatedJobs = jobs.filter((job) => {
+    };
+    
+    let updatedJobs = mapArr.filter((job) => {
       return (
         (currMinSalary === "All" ||
           (job.salary >= currMinSalary && job.salary <= currMaxSalary)) &&
@@ -325,7 +250,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
       );
     });
 
-    // condition if there is no job for particular search query
     if (updatedJobs.length === 0) {
       allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
       return;
@@ -335,32 +259,45 @@ document.addEventListener("DOMContentLoaded", (event) => {
     updatedJobs.forEach((job) => {
       displayJobs(job);
     });
-  };
+    
+}
 
-  [
-    ...new Set(
-      jobs.map((job) => {
-        return job.type;
-      })
-    ),
-  ].forEach((languageType) => {
-    languageTypeAddToDropDown(languageType);
+// Event listener on Search input tag
+document.getElementById("search").addEventListener("input", handleSearch);
+
+  // adding unique job type in dropdown menu
+  [...new Set(jobs.map(job => job.type))].forEach((languageType) => {
+    let option = document.createElement("option");
+    option.value = languageType;
+    option.textContent = languageType;
+
+    langDropDown.appendChild(option);
   });
 
+  // Event Listener on job type drop down
   langDropDown.addEventListener("change", (event) => {
     languageType = event.target.value;
     handleSearch();
   });
 
+  // adding salary range in salary dropdown menu
+  for (let i = 0; i < 5; i++) {
+    let salaryIncrement = (maxSalary - minSalary) / 5;
+    let option = document.createElement("option");
+    let min = minSalary + i * salaryIncrement;
+    let max = min + salaryIncrement;
+    option.textContent = `Rs. ${min} - Rs. ${max}`;
+    option.value = `${min},${max}`;
+    salaryDropDown.appendChild(option);
+  }
+
+  // Event Listener on salary drop down
   salaryDropDown.addEventListener("change", (event) => {
     salaryVal = event.target.value;
-    console.log(typeof salaryVal);
-
     handleSearch();
   });
 
-  document.getElementById("search").addEventListener("input", handleSearch);
-
+  // displaying All jobs when user clicks on AllJobs from navbar
   document.getElementById("allJobs").addEventListener("click", () => {
     isAppliedJob = false;
     let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
@@ -373,15 +310,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
   });
 
+  // displaying filtered jobs when user clicks on AppliedJobs from navbar
   document.getElementById("applidJobs").addEventListener("click", () => {
     isAppliedJob = true;
-    // getting all the jobs
-    let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
 
-    // getting userId
+    let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
     let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
 
-    // filtering out jobs based on appliedBy field in job object
     let updatedJobs = jobs.filter((job) => {
       let exists = job.appliedBy?.findIndex(
         (currUser) => currUser.id === user?.id
@@ -393,40 +328,26 @@ document.addEventListener("DOMContentLoaded", (event) => {
       allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
       return;
     }
-
     allJobsList.innerHTML = "";
-
     updatedJobs.forEach((job) => {
       displayJobs(job);
     });
   });
 
+  // handling pop-up menu close function when user clicks ouside the popup menu
   document.getElementById("pop-up").addEventListener("click", (event) => {
     if (!event.target.closest("#pop-up-form")) {
-      let popUp = document.getElementById("pop-up");
-      popUp.style.display = "none";
+      document.getElementById("pop-up").style.display = "none";
     }
   });
 
+  // Handling pop-up form when user clicks on apply button on job card
   document.getElementById("pop-up-form").addEventListener("submit", (event) => {
     event.preventDefault();
 
     let username = document.getElementById("username");
     let email = document.getElementById("email");
     let pdfFile = document.getElementById("pdf-file").files[0];
-    let fileObject = {
-      name: pdfFile.name,
-      size: pdfFile.size,
-      type: pdfFile.type,
-      lastModified: pdfFile.lastModified,
-      data: pdfFile,
-    };
-
-    // console.log(fileObject)
-    // let blob = new Blob([fileObject.data], { type: fileObject.type });
-    // let fileURL = URL.createObjectURL(blob);
-    // console.log("File URL:", fileURL);
-
     if (
       username.value.toString().trim() === "" ||
       email.value.toString().trim() === ""
@@ -434,9 +355,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
       alert("Enter username and email");
       return;
     }
-
+    // console.log(fileObject)
+    // let blob = new Blob([fileObject.data], { type: fileObject.type });
+    // let fileURL = URL.createObjectURL(blob);
+    // console.log("File URL:", fileURL);
+    
     let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
     let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+
+    let fileObject = {
+      name: pdfFile.name,
+      size: pdfFile.size,
+      type: pdfFile.type,
+      lastModified: pdfFile.lastModified,
+      data: pdfFile,
+    };
 
     let newObj = {
       id: user?.id,
