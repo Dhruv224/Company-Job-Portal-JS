@@ -1,37 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home page</title>
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="admin.css" />
     <script src="admin.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <div>
-        <nav>
-            <h3 class="title">Admin Page</h3>
-            <ul class="middle">
-                <li > 
-                   posted job
-                </li>
-                <li onclick="toaddjob()"> 
-                    add job
-                 </li>
-                 </ul>
-            <button type="submit" id="btn" onclick="logout(event)">Logout</button>
+      <nav>
+        <h3 class="title">Admin Page</h3>
+        <ul class="middle">
+          <li>posted job</li>
+          <li onclick="toaddjob()">add job</li>
+          <li onclick="redirectToUsersPage()">Users CRUD</li>
+        </ul>
+        <button type="submit" id="btn" onclick="logout(event)">Logout</button>
+      </nav>
 
-        </nav>
+      <div id="dynamic-content">
+        <div class="search-container">
+          <input
+            type="text"
+            id="search"
+            placeholder="Search by title or type of job here..."
+            autofocus
+          />
+        </div>
 
-        <div id="dynamic-content"> 
-             
-            <div class="search-container">
-                <input type="text" id="search" placeholder="Search by title or type of job here..." autofocus>
-                </div>
-        
-                <div id="all-jobs-list"> 
-                </div>
-     </div>
+        <div id="all-jobs-list"></div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

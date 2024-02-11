@@ -1,0 +1,107 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+    height: 50px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    
+}
+
+.title{
+    font-size: 25px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.middle{
+    display: flex;
+    gap: 50px;
+    font-size: 20px;
+    list-style: none;
+}
+
+.middle li{
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.5s;
+}
+
+a{
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.5s;
+    color: black;
+}
+
+.middle li:hover{
+    color: grey;
+    scale: 1.1;
+}
+
+a:hover{
+    color: grey;
+}
+
+.btn, #btn{
+    padding: 5px 8px;
+    border: 2px solid blue;
+    color: white;
+    background-color: rgb(31, 31, 227);
+    border-radius: 4px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.btn:hover, #btn:hover{
+    background-color: white;
+    color: rgb(31, 31, 227);
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login{
+    padding: 10px;
+    border: 2px solid rgb(31, 31, 227);
+    width: min(300px, 50vw);
+}
+
+#heading{
+    font-size: 35px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#username-div, #password-div{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+#username, #password, #cpassword{
+    margin-top: 4px;
+    padding: 5px 8px;
+    border: 2px solid rgb(31, 31, 227);
+}
+
+#btn{
+    margin-top: 10px;
+}
