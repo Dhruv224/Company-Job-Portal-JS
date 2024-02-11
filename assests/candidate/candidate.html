@@ -20,7 +20,15 @@
         </nav>
 
         <div class="search-container">
-            <input type="text" id="search" placeholder="Search by title or type of job here..." autofocus>
+            <input type="text" id="search" placeholder="Search by title, company type of job here..." autofocus>
+            <div class="drop-down">
+                <select id="salary-drop-down">
+                    <option value="All" selected>All Salary</option>
+                </select>
+                <select id="lang-drop-down">
+                    <option value="All" selected>All Jobs</option>
+                </select>
+            </div>
         </div>
 
         <div id="all-jobs-list"></div>
@@ -52,11 +60,6 @@
             window.location.href = "../login/login.html"
             return;
         }
-
-        // const jobDetailSubmited = () => {
-        //     window.location.href = "candidate.html";
-        //     return;
-        // }
     </script>
 </body>
 </html>

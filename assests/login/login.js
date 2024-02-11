@@ -1,6 +1,6 @@
 let users = [
     {
-        id: 1, 
+        id: 0, 
         username: "dp",
         password: "dp",
     },
@@ -10,7 +10,7 @@ let users = [
         password: "vp",
     },
 ];
-localStorage.setItem("users", JSON.stringify(users));
+// localStorage.setItem("users", JSON.stringify(users));
 
     const form = document.getElementById("login-form");
 
@@ -21,9 +21,16 @@ localStorage.setItem("users", JSON.stringify(users));
         let username = document.getElementById("username")?.value;
         let password = document.getElementById("password")?.value;
 
+        if(username.toString().trim() === "" || password.toString().trim() === ""){
+            alert("Enter username and password");
+            form.reset();
+            return;
+        }
+
         // if admin then redirect to admin page
         if(username === "Admin" && password === "Admin"){
             window.location.href = "../admin/admin.html";
+            localStorage.setItem("isAdmin", "true");
             return;
         }
 
