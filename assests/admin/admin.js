@@ -1,51 +1,59 @@
 //logic for logout button
-// const logout = () => {
-//     localStorage.removeItem("isAuthenticated");
-//     window.location.href = "../login/login.html"
-//     return;
-// }
+const logout = () => {
+    localStorage.removeItem("isAuthenticated");
+    window.location.href = "../login/login.html"
+    return;
+}
 
-//this function creates the new job fro admin to show
-function addjob(){
-    // loadcontent('./addjob/addjob.html');
-    console.log("callback is called");
-    const addjobform = document.getElementById("addjob-form")
-    console.log(addjobform);
-    addjobform.addEventListener("submit",(event)=>{
-        event.preventDefault();
+function toaddjob(){
+    window.location.href='./addjob/addjob.html'
+        
+}
 
-        //job title ,type,and decription is set here 
-        let title = document.getElementById("j-title")?.value;
-        let type = document.getElementById("j-type")?.value;
-        let description = document.getElementById("j-desc")?.value;
+function deletejob (jobid){
+    const jobArray = JSON.parse(localStorage.getItem("jobs"));
+    
+    console.log("clicked",jobArray);
+     jobid = parseInt(jobid,10);
 
-        //jobs are being copied in local storage in jobs array
-        let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-        console.log(type);
-        console.log(description);
-        console.log(title);
+    const jobToDelete = jobArray.find((job) => job.jobId === jobid);
+    window.location.reload();
+    
+ if (jobToDelete) {
+    // Perform actions with the found button
+    console.log("Button found:", jobToDelete);
+    jobArray.splice(jobArray.indexOf(jobToDelete),1);
+    console.log(jobArray);
+   localStorage.setItem("jobs", JSON.stringify(jobArray));
+} else {
+    console.log("Button not found");
+}
 
-        //new job is created by this object in jobs array
-    const newjob = {
-            jobId : jobs.length,
-            title : title,
-            desc : description,
-            type : type,
-            appliedby:[],
- }
 
-             jobs.push(newjob);
+} 
 
-           //jobs array is updated with new jon in localstorage
-            localStorage.setItem("jobs",JSON.stringify(jobs));
-            addjobform.reset();
-            loadcontent('./postedjob/postedjob.html', postedjob);
- })
+function updatejob (jobid){
+
+    const jobArray = JSON.parse(localStorage.getItem("jobs"));
+    jobid = parseInt(jobid, 10);
+    const jobToUpdate = jobArray.find((job) => job.jobId === jobid);
+
+    if (jobToUpdate) {
+        // Convert the job details to a query string
+       
+        const queryString = `?job=${encodeURIComponent(JSON.stringify(jobToUpdate))}`;
+        // Redirect to addjob.html with the query string
+        window.location.href = `./addjob/addjob.html${queryString}`;
+    } else {
+        console.log("Job not found");
+    }
+
+
 }
 
 //this function shows the already posted job by admin and the home page for admin too
 function postedjob(){
-    
+    console.log("hello world")
     let allJobsList = document.querySelector("#all-jobs-list");
     allJobsList.innerHTML="";
     
@@ -59,14 +67,35 @@ function postedjob(){
         let desc = document.createElement("p");
         desc.textContent = job.desc;
     
+         // creating job description
+         let salary = document.createElement("p");
+         desc.textContent = job.salary;
+     // creating job description
+     let location = document.createElement("p");
+     desc.textContent = job.location;
+
+   // creating job description
+   let companyname = document.createElement("p");
+   desc.textContent = job.companyname;
+
         // creating job type
         let type = document.createElement("h3");
-        type.textContent = job.type;
+        type.textContent = job.type  ;
+
+
     
         // // creating button for Apply
         let button = document.createElement("button");
-        button.textContent = "Apply";
+        button.textContent = "delete";
         button.id = "btn";
+        button.onclick = ()=>{deletejob(job.jobId);}
+
+         // // creating button for update
+         let uptbutton = document.createElement("button");
+         uptbutton.textContent = "update";
+         uptbutton.id = "uptbtn";
+         uptbutton.onclick = ()=>{ updatejob(job.jobId);}
+
     
         // creating job card
         let jobCard = document.createElement("div");
@@ -74,7 +103,11 @@ function postedjob(){
         jobCard.appendChild(title);
         jobCard.appendChild(desc);
         jobCard.appendChild(type);
+        jobCard.appendChild(salary);
+        jobCard.appendChild(location);
+        jobCard.appendChild(companyname);
         jobCard.appendChild(button);
+        jobCard.appendChild(uptbutton);
         
         // adding job card to DOM
         allJobsList.appendChild(jobCard);
@@ -114,43 +147,36 @@ function postedjob(){
         })
     });
 
+
+        
+        
+
 }
 
+
+
+
+
+
+   
+
 //this function fetchs the addjob.html file to show on admin.html page as react does for components 
-async function loadcontent(pagepath,callback){
 
-        //the fetched addjob.html is shown in this div with id= dynamic-content
-        document.getElementById('dynamic-content').innerHTML =  "";
-        try{
-            const data = await fetch(pagepath);
-
-            const html = await data.text();
-
-            document.getElementById('dynamic-content').innerHTML =  html;
-            
-            console.log(callback);
-           if(callback && typeof callback === "function"){
-            callback();
-           }
-            
-        }
-        catch(error){
-            console.log(error + "error");
-        } }
 
         document.addEventListener("DOMContentLoaded", () => {
             // if(!localStorage.getItem("isAdmin")){
             //     window.location.href = "../login/login.html";
             //     return;
             // }
-           
+           postedjob();
         //this statement is used to show by default the posted job page on admin screen 
-            loadcontent('./postedjob/postedjob.html', postedjob)  
-
+            // loadcontent('./postedjob/postedjob.html', postedjob)  
 
             
         
         });
+
+
         
 
        

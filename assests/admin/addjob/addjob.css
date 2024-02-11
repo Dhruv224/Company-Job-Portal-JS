@@ -25,13 +25,13 @@
     margin-bottom: 20px;
 }
 
-#j-title-div, #j-type-div,#j-desc-div{
+#j-title-div, #j-type-div,#j-desc-div,#j-salary-div,#j-location-div,#j-company-div{
     margin-top: 15px;
     display: flex;
     flex-direction: column;
 }
 
-#j-title, #j-type, #j-desc{
+#j-title, #j-type, #j-desc,#j-salary,#j-location,#j-company{
     margin-top: 4px;
     padding: 5px 8px;
     border: 2px solid rgb(31, 31, 227);

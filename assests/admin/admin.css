@@ -43,7 +43,23 @@ nav{
     scale: 1.1;
 }
 
-#btn{
+#btn {
+    padding: 5px 8px;
+    border: 2px solid red;
+    color: white;
+    background-color: rgb(227, 31, 31);
+    border-radius: 4px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+
+#btn:hover , #uptbtn:hover{
+    background-color: white;
+    color: rgb(31, 31, 227);
+}
+
+#uptbtn {
     padding: 5px 8px;
     border: 2px solid blue;
     color: white;
@@ -51,11 +67,7 @@ nav{
     border-radius: 4px;
     transition: all 0.5s;
     cursor: pointer;
-}
-
-#btn:hover{
-    background-color: white;
-    color: rgb(31, 31, 227);
+    margin-left: 5px;
 }
 
 .search-container{
