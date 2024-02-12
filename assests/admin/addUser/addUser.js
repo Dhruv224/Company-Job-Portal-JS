@@ -1,3 +1,9 @@
+const logout = () => {
+  localStorage.removeItem("isAdmin");
+  window.location.href = "../../login/login.html";
+  return;
+};
+
 const form = document.getElementById("register-form");
 
 form.addEventListener("submit", (event) => {
@@ -42,3 +48,8 @@ form.addEventListener("submit", (event) => {
 
   form.reset();
 });
+
+document.addEventListener("DOMContentLoaded",()=>{if(!localStorage.getItem("isAdmin")){
+  window.location.href = "../login/login.html";
+  return;
+}})

@@ -121,8 +121,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
   let jobId = null;
   let isAppliedJob = false;
   let languageType = "All";
-  let minSalary = jobs.reduce((min, job) => Math.min(min, job.salary), Infinity);
-  let maxSalary = jobs.reduce((max, job) => Math.max(max, job.salary), -Infinity);
+  let minSalary = jobs.reduce(
+    (min, job) => Math.min(min, job.salary),
+    Infinity
+  );
+  let maxSalary = jobs.reduce(
+    (max, job) => Math.max(max, job.salary),
+    -Infinity
+  );
   let salaryVal = "All";
   let currPage = 1;
   let cardPerPage = 4;
@@ -138,7 +144,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             <p><span>Type: </span>${job.type}</p>
             <p><span>Salary: </span>Rs.${job.salary}</p>
             <p><span>Location: </span>${job.location}</p>
-            <p><span>Company: </span>${job.companyName}</p>
+            <p><span>Company: </span>${job.company}</p>
         `;
 
     let applyBtn = document.createElement("button");
@@ -202,11 +208,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
     allJobsList.innerHTML = "";
-    let startInd = (currPage-1)*cardPerPage;
+    let startInd = (currPage - 1) * cardPerPage;
     let endInd = startInd + cardPerPage;
     let jobCardParPagesArr = jobs.slice(startInd, endInd);
-    jobCardParPagesArr.forEach(job => displayJobs(job));
-  }
+    jobCardParPagesArr.forEach((job) => displayJobs(job));
+  };
 
   //=============================================================Event Listener for click event on Apply button on job card
   const applyBtnFunc = (event) => {
@@ -254,21 +260,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let mapArr = jobs;
 
     if (isAppliedJob) {
-     mapArr = jobs.filter((job) => {
+      mapArr = jobs.filter((job) => {
         let appliedJobOrNot = job.appliedBy.findIndex(
           (currUser) => currUser.id === user?.id
         );
         return appliedJobOrNot !== -1;
       });
-    };
-    
+    }
+
     let updatedJobs = mapArr.filter((job) => {
       return (
         (currMinSalary === "All" ||
           (job.salary >= currMinSalary && job.salary <= currMaxSalary)) &&
         (languageType === "All" || job.type === languageType) &&
         (job.title.toLowerCase().includes(searchQuery) ||
-          job.companyName.toLowerCase().includes(searchQuery) ||
+          job.company.toLowerCase().includes(searchQuery) ||
           job.type.toLowerCase().includes(searchQuery))
       );
     });
@@ -280,7 +286,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   document.getElementById("search").addEventListener("input", handleSearch);
 
   //=============================================================adding unique job type in dropdown menu dynamically
-  [...new Set(jobs.map(job => job.type))].forEach((languageType) => {
+  [...new Set(jobs.map((job) => job.type))].forEach((languageType) => {
     let option = document.createElement("option");
     option.value = languageType;
     option.textContent = languageType;
@@ -300,7 +306,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let option = document.createElement("option");
     let min = minSalary + i * salaryIncrement;
     let max = min + salaryIncrement;
-    option.textContent = `Rs. ${min} - Rs. ${max}`;
+    option.textContent = `Rs. ${min.toFixed(2)} - Rs. ${max.toFixed(2)}`;
     option.value = `${min},${max}`;
     salaryDropDown.appendChild(option);
   }
@@ -357,7 +363,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       alert("Enter username and email");
       return;
     }
-    
+
     user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
     jobs = JSON.parse(localStorage.getItem("jobs")) || [];
 

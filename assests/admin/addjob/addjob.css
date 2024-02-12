@@ -17,7 +17,9 @@
 
 .addjob{
     padding: 10px;
-    border: 2px solid rgb(31, 31, 227);
+    border-radius: 5px;
+    width: min(300px, 50vw);
+    box-shadow: 0px 0px 15px rgb(31, 31, 227);
 }
 
 #heading{

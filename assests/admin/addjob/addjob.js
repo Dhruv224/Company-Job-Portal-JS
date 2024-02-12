@@ -153,24 +153,24 @@ function toadminpage() {
 }
 
 ////=============================================================this function creates the new job fro admin to show
-function addjob(value, event) {
-  event.preventDefault();
-  //job title ,type,and decription is set here
-  let title = document.getElementById("j-title")?.value;
-  let type = document.getElementById("j-type")?.value;
-  let description = document.getElementById("j-desc")?.value;
-  let salary = document.getElementById("j-salary")?.value;
-  let location = document.getElementById("j-location")?.value;
-  let companyname = document.getElementById("j-company")?.value;
+function addjob(value,event){
+    event.preventDefault();
+      //job title ,type,and decription is set here 
+      let title = document.getElementById("j-title")?.value;
+      let type = document.getElementById("j-type")?.value;
+      let description = document.getElementById("j-desc")?.value;
+      let salary = document.getElementById("j-salary")?.value;
+      let location = document.getElementById("j-location")?.value;
+      let company = document.getElementById("j-company")?.value;
 
-  //jobs are being copied in local storage in jobs array
-  let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-  console.log(type);
-  console.log(description);
-  console.log(title);
-  console.log(salary);
-  console.log(location);
-  console.log(companyname);
+ //jobs are being copied in local storage in jobs array
+ let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+ console.log(type);
+ console.log(description);
+ console.log(title);
+ console.log(salary);
+ console.log(location);
+ console.log(company);
 
   if (value) {
     //this block executes when job is getting updated
@@ -178,29 +178,34 @@ function addjob(value, event) {
     const jobToUpdate = jobs.find((job) => job.jobId === value);
     console.log(jobToUpdate);
 
-    jobToUpdate.title = title;
-    jobToUpdate.desc = description;
-    jobToUpdate.type = type;
-    jobToUpdate.salary = salary;
-    jobToUpdate.location = location;
-    jobToUpdate.companyname = companyname;
+       jobToUpdate.title = title;
+       jobToUpdate.desc = description;
+       jobToUpdate.type = type;
+       jobToUpdate.salary = salary;
+       jobToUpdate.location = location;
+       jobToUpdate.company = company;
+       
+       console.log(jobToUpdate);
+       console.log(jobs);
+    }
 
-    console.log(jobToUpdate);
-    console.log(jobs);
-  } else {
-    //this block executes when new job is getting created
-    //new job is created by this object in jobs array
+    else{
+      //this block executes when new job is getting created
+        //new job is created by this object in jobs array
+        let uniqueId = parseInt((jobs[jobs.length-1]?.jobId || 0) + 1);
+
+        
     const newjob = {
-      jobId: jobs.length + 1,
-      title: title,
-      desc: description,
-      type: type,
-      salary: salary,
-      location: location,
-      companyname: companyname,
-      appliedBy: [],
-      selected: [],
-    };
+            jobId : uniqueId,
+            title : title,
+            desc : description,
+            type : type,
+            salary: salary,
+            location: location,
+            company: company,
+            appliedBy:[],
+            selected:[],         
+ }
 
     jobs.push(newjob);
     //jobs array is updated with new jon in localstorage
@@ -214,6 +219,12 @@ function addjob(value, event) {
 document.addEventListener("DOMContentLoaded", () => {
   const addjobform = document.getElementById("addjob-form");
 
+document.addEventListener("DOMContentLoaded",()=>{
+  if(!localStorage.getItem("isAdmin")){
+    logout();
+    return;
+  }
+  
   //this statements catches the jobobject sent through urlparams
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -227,12 +238,12 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(job);
 
     // Populate form fields with the retrieved values
-    document.getElementById("j-title").value = job.title || "";
-    document.getElementById("j-desc").value = job.desc || "";
-    document.getElementById("j-type").value = job.type || "";
-    document.getElementById("j-salary").value = job.salary || "";
-    document.getElementById("j-location").value = job.location || "";
-    document.getElementById("j-company").value = job.companyname || "";
+    document.getElementById('j-title').value = job.title || '';
+    document.getElementById('j-desc').value = job.desc || '';
+    document.getElementById('j-type').value = job.type || '';
+    document.getElementById('j-salary').value = job.salary || '';
+    document.getElementById('j-location').value = job.location || '';
+    document.getElementById('j-company').value = job.company || '';
 
     addjobform.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -253,4 +264,4 @@ document.addEventListener("DOMContentLoaded", () => {
       addjobform.reset();
     });
   }
-});
+});})
