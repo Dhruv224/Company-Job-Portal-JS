@@ -7,7 +7,9 @@ let jobs = [
     salary: 60000,
     location: "Remote",
     companyName: "Google",
-    appliedBy: [],
+    appliedBy: [{id: 1, username: "dp", password: "dp"},{id: 2, username: "vp", password: "vp"},
+    {id: 3, username: "jp", password: "jp"}
+  ],
   },
   {
     jobId: 2,
@@ -101,7 +103,7 @@ let jobs = [
   },
 ];
 
-// localStorage.setItem("jobs", JSON.stringify(jobs));
+ localStorage.setItem("jobs", JSON.stringify(jobs));
 
 document.addEventListener("DOMContentLoaded", (event) => {
   event.preventDefault();
@@ -391,7 +393,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       if (jobIndex !== -1 && job.jobId === Number(jobId)) {
         job.appliedBy.push(newObj);
       }
-
+console.log("it worked");
       return job;
     });
 

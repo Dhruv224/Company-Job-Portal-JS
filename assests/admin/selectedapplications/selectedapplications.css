@@ -43,7 +43,7 @@ nav{
     scale: 1.1;
 }
 
-#btn ,#uptbtn , #tapp ,#sapp{
+#btn ,#resumebtn , #tapp {
     padding: 5px 8px;
     border: 2px solid red;
     color: white;
@@ -54,7 +54,7 @@ nav{
     
 }
 
-#uptbtn {
+#resumebtn {
   
     border: 2px solid blue;
     background-color: rgb(31, 31, 227);
@@ -67,13 +67,7 @@ nav{
     margin-left: 5px;
 }
 
-#sapp {
-    border: 2px solid black;
-    background-color: rgb(227, 181, 31);
-    margin-left: 5px;
-}
-
-#btn:hover , #uptbtn:hover, #tapp:hover,#sapp:hover{
+#btn:hover , #resumebtn:hover, #tapp:hover{
     background-color: white;
     color: rgb(31, 31, 227);
 }
@@ -84,23 +78,11 @@ nav{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
     margin: 50px 0;
 }
 
-.drop-down{
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
 #search{
-    width: 70%;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-#lang-drop-down, #salary-drop-down{
+    width: 90%;
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;
@@ -121,7 +103,7 @@ nav{
     border-radius: 5px;
     padding: 20px;
     margin-bottom: 20px;
-    width: min(500px, 73vw);
+    width: min(550px, 57vw);
     outline: 2px solid #635e5e;
     outline-offset: 0px;
     transition: all 0.5s;

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tapp page</title>
+    <link rel="stylesheet" href="totalapplications.css">
+    <script src="totalapplications.js" defer></script>
+</head>
+<body>
+    <div>
+        <nav>
+            <h3 class="title">tapp Page</h3>
+            <ul class="middle">
+                <li onclick="topostedjob()" > 
+                   posted job
+                </li>
+                <li onclick="toaddjob()"> 
+                    add job
+                 </li>
+                 </ul>
+            <button type="submit" id="btn" onclick="logout(event)">Logout</button>
+
+        </nav>
+
+        <div id="dynamic-content"> 
+             
+            <div class="search-container">
+                <input type="text" id="search" placeholder="Search by title or type of job here..." autofocus>
+                </div>
+        
+                <div id="all-jobs-list"> 
+                </div>
+     </div>
+    </div>
+</body>
+</html>
