@@ -118,7 +118,6 @@ function sappfunction(jobid) {
     //if jobToSend found this block works
     if (jobToSend) {
         // Convert the job details to a query string
-        console.log(jobToSend);
         const queryString = `?job=${encodeURIComponent(JSON.stringify(jobToSend))}`;
 
         // Redirect to selectedapplications.html with the query string
@@ -130,7 +129,6 @@ function sappfunction(jobid) {
 }
 ////=============================================================this function shows the already posted job by admin and the home page for admin too
 function postedjob() {
-    console.log("hello world")
     let allJobsList = document.querySelector("#all-jobs-list");
     allJobsList.innerHTML = "";
 
@@ -317,10 +315,10 @@ function postedjob() {
 
 ////=============================================================this function fetchs the addjob.html file to show on admin.html page as react does for components 
 document.addEventListener("DOMContentLoaded", () => {
-    // if(!localStorage.getItem("isAdmin")){
-    //     window.location.href = "../login/login.html";
-    //     return;
-    // }
+    if(!localStorage.getItem("isAdmin")){
+        window.location.href = "../login/login.html";
+        return;
+    }
 
     ////=============================================================this statement is used to show by default the posted job page on admin screen
     postedjob();
