@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home page</title>
-    <link rel="stylesheet" href="admin.css">
-    <script src="admin.js" defer></script>
+    <title>tapp page</title>
+    <link rel="stylesheet" href="totalapplications.css">
+    <script src="totalapplications.js" defer></script>
 </head>
 <body>
     <div>
         <nav>
-            <h3 class="title">Admin Page</h3>
+            <h3 class="title">tapp Page</h3>
             <ul class="middle">
-                <li > 
+                <li onclick="topostedjob()" > 
                    posted job
                 </li>
                 <li onclick="toaddjob()"> 
@@ -26,17 +26,9 @@
         <div id="dynamic-content"> 
              
             <div class="search-container">
-                <input type="text" id="search" placeholder="Search by title, company type of job here..." autofocus>
-                <div class="drop-down">
-                    <select id="salary-drop-down">
-                        <option value="All" selected>All Salary</option>
-                    </select>
-                    <select id="lang-drop-down">
-                        <option value="All" selected>All Jobs</option>
-                    </select>
+                <input type="text" id="search" placeholder="Search by title or type of job here..." autofocus>
                 </div>
-            </div>
-    
+        
                 <div id="all-jobs-list"> 
                 </div>
      </div>

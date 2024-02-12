@@ -1,4 +1,110 @@
+let defaultjobs = [
+    {
+      jobId: 1,
+      title: "Frontend Developer",
+      desc: "Looking for a skilled frontend developer to join our team.",
+      type: "React.js",
+      salary: 60000,
+      location: "Remote",
+      companyName: "Google",
+      appliedBy: [{id: 1, username: "dp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},{id: 2, username: "vp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"}, {id: 3, username: "jp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"}],
+      selected:[{id: 4, username: "kp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},{id: 5, username: "rp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},{id: 6, username: "np", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},]
+    },
+    {
+      jobId: 2,
+      title: "Backend Engineer",
+      desc: "Seeking an experienced backend engineer proficient in Node.js.",
+      type: "Node.js",
+      salary: 70000,
+      location: "San Francisco, CA",
+      companyName: "Bacancy",
+      appliedBy: [],
+    },
+    {
+      jobId: 3,
+      title: "Data Analyst",
+      desc: "Analyzing data to provide insights and support decision-making processes.",
+      type: "Python",
+      salary: 15000,
+      location: "New York, NY",
+      companyName: "Google",
+      appliedBy: [],
+    },
+    {
+      jobId: 4,
+      title: "UI/UX Designer",
+      desc: "Creating intuitive and visually appealing user interfaces.",
+      type: "Python",
+      salary: 25000,
+      location: "Remote",
+      companyName: "Bacancy",
+      appliedBy: [],
+    },
+    {
+      jobId: 5,
+      title: "Full Stack Developer",
+      desc: "Developing both frontend and backend solutions.",
+      type: "Java",
+      salary: 50000,
+      location: "Austin, TX",
+      companyName: "Google",
+      appliedBy: [],
+    },
+    {
+      jobId: 6,
+      title: "Software Engineer",
+      desc: "Designing, developing, and maintaining software applications.",
+      type: "Java",
+      salary: 37000,
+      location: "Boston, MA",
+      companyName: "SoftCo",
+      appliedBy: [],
+    },
+    {
+      jobId: 7,
+      title: "DevOps Engineer",
+      desc: "Implementing and managing automation processes for software development.",
+      type: "Docker",
+      salary: 80000,
+      location: "Seattle, WA",
+      companyName: "Microsoft",
+      appliedBy: [],
+    },
+    {
+      jobId: 8,
+      title: "Product Manager",
+      desc: "Leading the product development lifecycle and prioritizing features.",
+      type: "Docker",
+      salary: 90000,
+      location: "San Jose, CA",
+      companyName: "Microsoft",
+      appliedBy: [],
+    },
+    {
+      jobId: 9,
+      title: "Quality Assurance Tester",
+      desc: "Ensuring the quality and reliability of software applications.",
+      type: "React.js",
+      salary: 80000,
+      location: "Chicago, IL",
+      companyName: "Bacancy",
+      appliedBy: [],
+    },
+    {
+      jobId: 10,
+      title: "Technical Writer",
+      desc: "Creating clear and concise documentation for software products.",
+      type: "Node.js",
+      salary: 45000,
+      location: "Denver, CO",
+      companyName: "Microsoft",
+      appliedBy: [],
+    },
+  ];
+  localStorage.setItem("jobs", JSON.stringify(defaultjobs));
 
+  //this function redirects to add job page 
+function toadminpage() {window.location.href='../admin.html'}
 
 //this function creates the new job fro admin to show
 function addjob(value,event){
@@ -21,11 +127,10 @@ function addjob(value,event){
  console.log(companyname);
 
     if(value){
-
-     value = parseInt(value);
+//this block executes when job is getting updated
+     value = parseInt(value,10);
         const jobToUpdate = jobs.find((job) => job.jobId === value);
         console.log(jobToUpdate)
-
 
        jobToUpdate.title = title;
        jobToUpdate.desc = description;
@@ -36,70 +141,57 @@ function addjob(value,event){
        
        console.log(jobToUpdate);
        console.log(jobs);
-      
     }
 
     else{
-       
-
-      
-       
-
+      //this block executes when new job is getting created
         //new job is created by this object in jobs array
     const newjob = {
-            jobId : jobs.length,
+            jobId : jobs.length + 1,
             title : title,
             desc : description,
             type : type,
             salary: salary,
             location: location,
             companyname: companyname,
-            appliedby:[],
-
-
-        
-            
-           
-           
-            
+            appliedBy:[{id: 1, username: "dp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},{id: 2, username: "vp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"}, {id: 3, username: "jp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"}],
+            selected:[{id: 4, username: "kp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},{id: 5, username: "rp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},{id: 6, username: "np", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},],         
  }
 
              jobs.push(newjob);
-
-           //jobs array is updated with new jon in localstorage
-           
-    }
+           //jobs array is updated with new jon in localstorage       
+}
            
     localStorage.setItem("jobs",JSON.stringify(jobs));
-        
-    window.location.href="../admin.html"
- 
+      //after adding or updating job page automatically redirects to admin.html  
+    toadminpage()
 }
 
-document.addEventListener("DOMContentLoaded",
+document.addEventListener("DOMContentLoaded",()=>{
 
-()=>{
     const addjobform = document.getElementById("addjob-form");
        
+    //this statements catches the jobobject sent through urlparams
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-console.log(urlParams);
-let job = urlParams.get('job');
+
+//this defines if update button was clicked then urlparams.size will be nonzero 
+if(urlParams.size){
+    
+    let job = urlParams.get('job');
 console.log(job);
 
 job = JSON.parse(job);
 console.log(job);
-
-// Populate form fields with the retrieved values
-document.getElementById('j-title').value = job.title || '';
-document.getElementById('j-desc').value = job.desc || '';
-document.getElementById('j-type').value = job.type || '';
-document.getElementById('j-salary').value = job.salary || '';
-document.getElementById('j-location').value = job.location || '';
-document.getElementById('j-company').value = job.companyname || '';
-
     
-   
+    // Populate form fields with the retrieved values
+    document.getElementById('j-title').value = job.title || '';
+    document.getElementById('j-desc').value = job.desc || '';
+    document.getElementById('j-type').value = job.type || '';
+    document.getElementById('j-salary').value = job.salary || '';
+    document.getElementById('j-location').value = job.location || '';
+    document.getElementById('j-company').value = job.companyname || '';
+
     addjobform.addEventListener("submit",(event)=>{
         
         event.preventDefault();
@@ -107,18 +199,16 @@ document.getElementById('j-company').value = job.companyname || '';
         addjob(job.jobId,event); 
         
         addjobform.reset();
+    });}
     
-    
-    });
- 
-    
-    
- 
-
- 
-}
-
-
-
-);
+    //this defines if add job is clicked and new job supposed to be added or urlparams does not contain any thing 
+else{
+    addjobform.addEventListener("submit",(event)=>{
+        
+        event.preventDefault();
+        
+        addjob(0,event); 
+        
+        addjobform.reset();
+    });}});
 
