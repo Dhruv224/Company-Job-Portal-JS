@@ -88,32 +88,35 @@ function tappfunction(jobid) {
 //thi function defines when the admin wants to see the total applications
 ////=============================================================this function defines when the admin wants to see the total applications
 function sappfunction(jobid) {
-  //jobs got from localstorage
-  const jobArray = JSON.parse(localStorage.getItem("jobs"));
-  //jobid made integer
-  jobid = parseInt(jobid, 10);
-  //jobToSend is filled with that job which matches the jobid as parameter and JobId from jobs array
-  const jobToSend = jobArray.find((job) => job.jobId === jobid);
-  //if jobToSend found this block works
-  if (jobToSend) {
-    // Convert the job details to a query string
-    console.log(jobToSend);
-    const queryString = `?job=${encodeURIComponent(JSON.stringify(jobToSend))}`;
-    // Redirect to selectedapplications.html with the query string
-    window.location.href = `./selectedapplications/selectedapplications.html${queryString}`;
-  } else {
-    console.log("Job not found");
-  }
+
+    //jobs got from localstorage 
+    const jobArray = JSON.parse(localStorage.getItem("jobs"));
+
+    //jobid made integer
+    jobid = parseInt(jobid, 10);
+
+    //jobToSend is filled with that job which matches the jobid as parameter and JobId from jobs array 
+    const jobToSend = jobArray.find((job) => job.jobId === jobid);
+
+    //if jobToSend found this block works
+    if (jobToSend) {
+        // Convert the job details to a query string
+        const queryString = `?job=${encodeURIComponent(JSON.stringify(jobToSend))}`;
+
+        // Redirect to selectedapplications.html with the query string
+        window.location.href = `./selectedapplications/selectedapplications.html${queryString}`;
+    } else {
+        console.log("Job not found");
+    }
+
 }
 //this function shows the already posted job by admin and the home page for admin too
 ////=============================================================this function shows the already posted job by admin and the home page for admin too
 function postedjob() {
-  console.log("hello world");
-  let allJobsList = document.querySelector("#all-jobs-list");
-  allJobsList.innerHTML = "";
-  let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-  let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
+    let allJobsList = document.querySelector("#all-jobs-list");
+    allJobsList.innerHTML = "";
 
+     jobs = JSON.parse(localStorage.getItem('jobs')) || [];
   let langDropDown = document.getElementById("lang-drop-down");
   let salaryDropDown = document.getElementById("salary-drop-down");
   let paginationBtns = document.getElementById("pagination-btns");
@@ -291,7 +294,7 @@ function postedjob() {
     let option = document.createElement("option");
     let min = minSalary + i * salaryIncrement;
     let max = min + salaryIncrement;
-    option.textContent = `Rs. ${min} - Rs. ${max}`;
+    option.textContent = `Rs. ${min.toFixed(2)} - Rs. ${max.toFixed(2)}`;
     option.value = `${min},${max}`;
     salaryDropDown.appendChild(option);
   }
@@ -303,27 +306,15 @@ function postedjob() {
 
   // displaying All jobs when user clicks on AllJobs from navbar
   // //=============================================================displaying All jobs when user clicks on AllJobs from navbar
-  document.getElementById("allJobs").addEventListener("click", () => {
-    isAppliedJob = false;
-    let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-    if (jobs.length === 0) {
-      allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
-    }
-    allJobsList.innerHTML = "";
-    jobs.forEach((job) => {
-      displayJobs(job);
-    });
-  });
+  
 }
 
-//this function fetchs the addjob.html file to show on admin.html page as react does for components
-////=============================================================this function fetchs the addjob.html file to show on admin.html page as react does for components
-document.addEventListener("DOMContentLoaded", (event) => {
-  event.preventDefault();
-  if(!localStorage.getItem("isAdmin")){
-    logout();
-      return;
-  }
+////=============================================================this function fetchs the addjob.html file to show on admin.html page as react does for components 
+document.addEventListener("DOMContentLoaded", () => {
+    if(!localStorage.getItem("isAdmin")){
+        window.location.href = "../login/login.html";
+        return;
+    }
 
   //this statement is used to show by default the posted job page on admin screen
   ////=============================================================this statement is used to show by default the posted job page on admin screen

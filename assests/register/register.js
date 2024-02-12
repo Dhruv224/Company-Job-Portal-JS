@@ -29,8 +29,10 @@ form.addEventListener("submit", (event) => {
     return;
   }
 
+  let uniqueId = (users.length > 0) ? ++(users[users.length-1].id) : 1;
+
   let newUser = {
-    id: users.length,
+    id: uniqueId,
     username: username,
     password: password,
   };

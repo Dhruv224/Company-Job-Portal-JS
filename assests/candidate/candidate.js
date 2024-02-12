@@ -7,11 +7,7 @@ let jobs = [
     salary: 60000,
     location: "Remote",
     companyName: "Google",
-    appliedBy: [
-      { id: 1, username: "dp", password: "dp" },
-      { id: 2, username: "vp", password: "vp" },
-      { id: 3, username: "jp", password: "jp" },
-    ],
+    appliedBy:[]
   },
   {
     jobId: 2,
@@ -135,7 +131,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   );
   let salaryVal = "All";
   let currPage = 1;
-  let cardPerPage = 3;
+  let cardPerPage = 4;
 
   //=============================================================Displaying job one by one
   const displayJobs = (job) => {
@@ -182,7 +178,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   //=============================================================Pagination
   const pagination = (jobs) => {
-    let numPages = Math.ceil(jobs.length / cardPerPage);
+
+    let numPaginationBtn = Math.ceil(jobs.length / cardPerPage);
 
     if (jobs.length > cardPerPage) {
       paginationBtns.style.display = "flex";
@@ -190,18 +187,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
       paginationBtns.style.display = "none";
     }
 
+    if (jobs.length === 0) {
+      allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
+      return;
+    }
+
     if (jobs.length > cardPerPage) {
       paginationBtns.innerHTML = "";
-      for (let i = 1; i <= numPages; i++) {
-        let btn = document.createElement("button");
-        btn.innerHTML = i;
-        btn.id = i;
-        btn.classList.add("btn");
-        btn.addEventListener("click", () => {
-          currPage = i;
-          pagination(jobs);
-        });
-        paginationBtns.appendChild(btn);
+      for (let i = 1; i <= numPaginationBtn; i++) {
+          let btn = document.createElement("button");
+          btn.innerHTML = i;
+          btn.id = i;
+          btn.classList.add("btn");
+          btn.addEventListener("click", () => {
+            currPage = i;
+            pagination(jobs);
+          });
+          paginationBtns.appendChild(btn);
       }
     }
 
@@ -277,13 +279,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
       );
     });
 
-    if (updatedJobs.length === 0) {
-      allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
-      return;
-    }
-
-    pagination(updatedJobs);
-  };
+    pagination(updatedJobs);   
+}
 
   //=============================================================Event listener on Search input tag
   document.getElementById("search").addEventListener("input", handleSearch);
@@ -309,7 +306,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let option = document.createElement("option");
     let min = minSalary + i * salaryIncrement;
     let max = min + salaryIncrement;
-    option.textContent = `Rs. ${min} - Rs. ${max}`;
+    option.textContent = `Rs. ${min.toFixed(2)} - Rs. ${max.toFixed(2)}`;
     option.value = `${min},${max}`;
     salaryDropDown.appendChild(option);
   }
@@ -324,10 +321,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   document.getElementById("allJobs").addEventListener("click", () => {
     isAppliedJob = false;
     jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-    if (jobs.length === 0) {
-      allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
-    }
-
+    
     pagination(jobs);
   });
 
@@ -344,12 +338,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       );
       return exists !== -1;
     });
-
-    if (updatedJobs.length === 0) {
-      allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
-      return;
-    }
-
+    
     pagination(updatedJobs);
   });
 
@@ -401,19 +390,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
       if (jobIndex !== -1 && job.jobId === Number(jobId)) {
         job.appliedBy.push(newObj);
       }
-      console.log("it worked");
       return job;
     });
 
     localStorage.setItem("jobs", JSON.stringify(updatedJobs));
-
     window.location.href = "candidate.html";
     return;
   });
 
+  
+
   //=============================================================displaying Card on Candidate page
-  document.getElementsByClassName("title")[0].innerHTML = `Welcome, <span>${
-    user?.username?.charAt(0).toUpperCase() + user?.username?.slice(1)
-  }</span> `;
+  document.getElementsByClassName("title")[0].innerHTML = `Welcome, <span style="color: rgb(31, 31, 227)">${user?.username?.charAt(0).toUpperCase() + user?.username?.slice(1)}</span> `;
   pagination(jobs);
 });

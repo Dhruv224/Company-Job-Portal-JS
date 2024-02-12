@@ -1,123 +1,156 @@
 let defaultjobs = [
-    {
-      jobId: 1,
-      title: "Frontend Developer",
-      desc: "Looking for a skilled frontend developer to join our team.",
-      type: "React.js",
-      salary: 60000,
-      location: "Remote",
-      company: "Google",
-      appliedBy: [{id: 1, username: "dp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},{id: 2, username: "vp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"}, {id: 3, username: "jp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"}],
-      selected:[{id: 4, username: "kp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},{id: 5, username: "rp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},{id: 6, username: "np", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},]
-    },
-    {
-      jobId: 2,
-      title: "Backend Engineer",
-      desc: "Seeking an experienced backend engineer proficient in Node.js.",
-      type: "Node.js",
-      salary: 70000,
-      location: "San Francisco, CA",
-      company: "Bacancy",
-      appliedBy: [],
-    },
-    {
-      jobId: 3,
-      title: "Data Analyst",
-      desc: "Analyzing data to provide insights and support decision-making processes.",
-      type: "Python",
-      salary: 15000,
-      location: "New York, NY",
-      company: "Google",
-      appliedBy: [],
-    },
-    {
-      jobId: 4,
-      title: "UI/UX Designer",
-      desc: "Creating intuitive and visually appealing user interfaces.",
-      type: "Python",
-      salary: 25000,
-      location: "Remote",
-      company: "Bacancy",
-      appliedBy: [],
-    },
-    {
-      jobId: 5,
-      title: "Full Stack Developer",
-      desc: "Developing both frontend and backend solutions.",
-      type: "Java",
-      salary: 50000,
-      location: "Austin, TX",
-      company: "Google",
-      appliedBy: [],
-    },
-    {
-      jobId: 6,
-      title: "Software Engineer",
-      desc: "Designing, developing, and maintaining software applications.",
-      type: "Java",
-      salary: 37000,
-      location: "Boston, MA",
-      company: "SoftCo",
-      appliedBy: [],
-    },
-    {
-      jobId: 7,
-      title: "DevOps Engineer",
-      desc: "Implementing and managing automation processes for software development.",
-      type: "Docker",
-      salary: 80000,
-      location: "Seattle, WA",
-      company: "Microsoft",
-      appliedBy: [],
-    },
-    {
-      jobId: 8,
-      title: "Product Manager",
-      desc: "Leading the product development lifecycle and prioritizing features.",
-      type: "Docker",
-      salary: 90000,
-      location: "San Jose, CA",
-      company: "Microsoft",
-      appliedBy: [],
-    },
-    {
-      jobId: 9,
-      title: "Quality Assurance Tester",
-      desc: "Ensuring the quality and reliability of software applications.",
-      type: "React.js",
-      salary: 80000,
-      location: "Chicago, IL",
-      company: "Bacancy",
-      appliedBy: [],
-    },
-    {
-      jobId: 10,
-      title: "Technical Writer",
-      desc: "Creating clear and concise documentation for software products.",
-      type: "Node.js",
-      salary: 45000,
-      location: "Denver, CO",
-      company: "Microsoft",
-      appliedBy: [],
-    },
-  ];
-  // localStorage.setItem("jobs", JSON.stringify(defaultjobs));
+  {
+    jobId: 1,
+    title: "Frontend Developer",
+    desc: "Looking for a skilled frontend developer to join our team.",
+    type: "React.js",
+    salary: 60000,
+    location: "Remote",
+    companyName: "Google",
+    appliedBy: [
+      {
+        id: 1,
+        username: "dp",
+        password: "dp",
+        email: "dp@gmail.com",
+        pdf: "resume.path",
+      },
+      {
+        id: 2,
+        username: "vp",
+        password: "dp",
+        email: "dp@gmail.com",
+        pdf: "resume.path",
+      },
+      {
+        id: 3,
+        username: "jp",
+        password: "dp",
+        email: "dp@gmail.com",
+        pdf: "resume.path",
+      },
+    ],
+    selected: [
+      {
+        id: 4,
+        username: "kp",
+        password: "dp",
+        email: "dp@gmail.com",
+        pdf: "resume.path",
+      },
+      {
+        id: 5,
+        username: "rp",
+        password: "dp",
+        email: "dp@gmail.com",
+        pdf: "resume.path",
+      },
+      {
+        id: 6,
+        username: "np",
+        password: "dp",
+        email: "dp@gmail.com",
+        pdf: "resume.path",
+      },
+    ],
+  },
+  {
+    jobId: 2,
+    title: "Backend Engineer",
+    desc: "Seeking an experienced backend engineer proficient in Node.js.",
+    type: "Node.js",
+    salary: 70000,
+    location: "San Francisco, CA",
+    companyName: "Bacancy",
+    appliedBy: [],
+  },
+  {
+    jobId: 3,
+    title: "Data Analyst",
+    desc: "Analyzing data to provide insights and support decision-making processes.",
+    type: "Python",
+    salary: 15000,
+    location: "New York, NY",
+    companyName: "Google",
+    appliedBy: [],
+  },
+  {
+    jobId: 4,
+    title: "UI/UX Designer",
+    desc: "Creating intuitive and visually appealing user interfaces.",
+    type: "Python",
+    salary: 25000,
+    location: "Remote",
+    companyName: "Bacancy",
+    appliedBy: [],
+  },
+  {
+    jobId: 5,
+    title: "Full Stack Developer",
+    desc: "Developing both frontend and backend solutions.",
+    type: "Java",
+    salary: 50000,
+    location: "Austin, TX",
+    companyName: "Google",
+    appliedBy: [],
+  },
+  {
+    jobId: 6,
+    title: "Software Engineer",
+    desc: "Designing, developing, and maintaining software applications.",
+    type: "Java",
+    salary: 37000,
+    location: "Boston, MA",
+    companyName: "SoftCo",
+    appliedBy: [],
+  },
+  {
+    jobId: 7,
+    title: "DevOps Engineer",
+    desc: "Implementing and managing automation processes for software development.",
+    type: "Docker",
+    salary: 80000,
+    location: "Seattle, WA",
+    companyName: "Microsoft",
+    appliedBy: [],
+  },
+  {
+    jobId: 8,
+    title: "Product Manager",
+    desc: "Leading the product development lifecycle and prioritizing features.",
+    type: "Docker",
+    salary: 90000,
+    location: "San Jose, CA",
+    companyName: "Microsoft",
+    appliedBy: [],
+  },
+  {
+    jobId: 9,
+    title: "Quality Assurance Tester",
+    desc: "Ensuring the quality and reliability of software applications.",
+    type: "React.js",
+    salary: 80000,
+    location: "Chicago, IL",
+    companyName: "Bacancy",
+    appliedBy: [],
+  },
+  {
+    jobId: 10,
+    title: "Technical Writer",
+    desc: "Creating clear and concise documentation for software products.",
+    type: "Node.js",
+    salary: 45000,
+    location: "Denver, CO",
+    companyName: "Microsoft",
+    appliedBy: [],
+  },
+];
+// localStorage.setItem("jobs", JSON.stringify(defaultjobs));
 
-
-  const logout = () => {
-    localStorage.removeItem("isAdmin");
-    window.location.href = "../../login/login.html";
-    return;
-  };
-
-  ////=============================================================redirects to user Crud page
-function redirectToUsersPage() {
-  window.location.href = "./users/users.html";
-  return;
+////=============================================================this function redirects to add job page
+function toadminpage() {
+  window.location.href = "../admin.html";
 }
-
-  ////=============================================================this function redirects to add job page 
-function toadminpage() {window.location.href='../admin.html'}
 
 ////=============================================================this function creates the new job fro admin to show
 function addjob(value,event){
@@ -139,11 +172,11 @@ function addjob(value,event){
  console.log(location);
  console.log(company);
 
-    if(value){
-//this block executes when job is getting updated
-     value = parseInt(value,10);
-        const jobToUpdate = jobs.find((job) => job.jobId === value);
-        console.log(jobToUpdate)
+  if (value) {
+    //this block executes when job is getting updated
+    value = parseInt(value, 10);
+    const jobToUpdate = jobs.find((job) => job.jobId === value);
+    console.log(jobToUpdate);
 
        jobToUpdate.title = title;
        jobToUpdate.desc = description;
@@ -174,15 +207,17 @@ function addjob(value,event){
             selected:[],         
  }
 
-             jobs.push(newjob);
-           //jobs array is updated with new jon in localstorage       
-}
-           
-    localStorage.setItem("jobs",JSON.stringify(jobs));
-      //after adding or updating job page automatically redirects to admin.html  
-    toadminpage()
+    jobs.push(newjob);
+    //jobs array is updated with new jon in localstorage
+  }
+
+  localStorage.setItem("jobs", JSON.stringify(jobs));
+  //after adding or updating job page automatically redirects to admin.html
+  toadminpage();
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  const addjobform = document.getElementById("addjob-form");
 
 document.addEventListener("DOMContentLoaded",()=>{
   if(!localStorage.getItem("isAdmin")){
@@ -190,22 +225,18 @@ document.addEventListener("DOMContentLoaded",()=>{
     return;
   }
   
+  //this statements catches the jobobject sent through urlparams
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
 
-    const addjobform = document.getElementById("addjob-form");
-       
-    //this statements catches the jobobject sent through urlparams
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
+  //this defines if update button was clicked then urlparams.size will be nonzero
+  if (urlParams.size) {
+    let job = urlParams.get("job");
+    console.log(job);
 
-//this defines if update button was clicked then urlparams.size will be nonzero 
-if(urlParams.size){
-    
-    let job = urlParams.get('job');
-console.log(job);
+    job = JSON.parse(job);
+    console.log(job);
 
-job = JSON.parse(job);
-console.log(job);
-    
     // Populate form fields with the retrieved values
     document.getElementById('j-title').value = job.title || '';
     document.getElementById('j-desc').value = job.desc || '';
@@ -214,23 +245,23 @@ console.log(job);
     document.getElementById('j-location').value = job.location || '';
     document.getElementById('j-company').value = job.company || '';
 
-    addjobform.addEventListener("submit",(event)=>{
-        
-        event.preventDefault();
-        
-        addjob(job.jobId,event); 
-        
-        addjobform.reset();
-    });}
-    
-    //this defines if add job is clicked and new job supposed to be added or urlparams does not contain any thing 
-else{
-    addjobform.addEventListener("submit",(event)=>{
-        
-        event.preventDefault();
-        
-        addjob(0,event); 
-        
-        addjobform.reset();
-    });}});
+    addjobform.addEventListener("submit", (event) => {
+      event.preventDefault();
 
+      addjob(job.jobId, event);
+
+      addjobform.reset();
+    });
+  }
+
+  //this defines if add job is clicked and new job supposed to be added or urlparams does not contain any thing
+  else {
+    addjobform.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      addjob(0, event);
+
+      addjobform.reset();
+    });
+  }
+});})

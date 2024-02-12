@@ -18,7 +18,7 @@ nav{
     z-index: 1000;
     
 }
-
+ 
 .title{
     font-size: 25px;
     font-weight: 700;
@@ -81,6 +81,8 @@ a:hover{
 .login{
     padding: 10px;
     border: 2px solid rgb(31, 31, 227);
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgb(31, 31, 227);
     width: min(300px, 50vw);
 }
 
