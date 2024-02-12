@@ -35,8 +35,9 @@ form.addEventListener("submit", (event) => {
     return;
   }
 
+  let uniqueId = parseInt((users[users.length-1]?.id || 0) + 1);
   let newUser = {
-    id: users.length,
+    id: uniqueId,
     username: username,
     password: password,
   };

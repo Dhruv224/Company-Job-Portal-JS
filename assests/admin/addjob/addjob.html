@@ -59,5 +59,12 @@
                  </form>
         </div>
     </div>
+    <script>
+        const logout = () => {
+          localStorage.removeItem("isAdmin");
+          window.location.href = "../../login/login.html";
+          return;
+        }
+      </script>
   </body>
 </html>
