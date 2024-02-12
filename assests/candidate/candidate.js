@@ -6,7 +6,7 @@ let jobs = [
     type: "React.js",
     salary: 60000,
     location: "Remote",
-    companyName: "Google",
+    company: "Google",
     appliedBy:[]
   },
   {
@@ -16,7 +16,7 @@ let jobs = [
     type: "Node.js",
     salary: 70000,
     location: "San Francisco, CA",
-    companyName: "Bacancy",
+    company: "Bacancy",
     appliedBy: [],
   },
   {
@@ -26,7 +26,7 @@ let jobs = [
     type: "Python",
     salary: 15000,
     location: "New York, NY",
-    companyName: "Google",
+    company: "Google",
     appliedBy: [],
   },
   {
@@ -36,7 +36,7 @@ let jobs = [
     type: "Python",
     salary: 25000,
     location: "Remote",
-    companyName: "Bacancy",
+    company: "Bacancy",
     appliedBy: [],
   },
   {
@@ -46,7 +46,7 @@ let jobs = [
     type: "Java",
     salary: 50000,
     location: "Austin, TX",
-    companyName: "Google",
+    company: "Google",
     appliedBy: [],
   },
   {
@@ -56,7 +56,7 @@ let jobs = [
     type: "Java",
     salary: 37000,
     location: "Boston, MA",
-    companyName: "SoftCo",
+    company: "SoftCo",
     appliedBy: [],
   },
   {
@@ -66,7 +66,7 @@ let jobs = [
     type: "Docker",
     salary: 80000,
     location: "Seattle, WA",
-    companyName: "Microsoft",
+    company: "Microsoft",
     appliedBy: [],
   },
   {
@@ -76,7 +76,7 @@ let jobs = [
     type: "Docker",
     salary: 90000,
     location: "San Jose, CA",
-    companyName: "Microsoft",
+    company: "Microsoft",
     appliedBy: [],
   },
   {
@@ -86,7 +86,7 @@ let jobs = [
     type: "React.js",
     salary: 80000,
     location: "Chicago, IL",
-    companyName: "Bacancy",
+    company: "Bacancy",
     appliedBy: [],
   },
   {
@@ -96,7 +96,7 @@ let jobs = [
     type: "Node.js",
     salary: 45000,
     location: "Denver, CO",
-    companyName: "Microsoft",
+    company: "Microsoft",
     appliedBy: [],
   },
 ];

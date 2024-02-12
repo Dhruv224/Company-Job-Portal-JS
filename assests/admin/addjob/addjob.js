@@ -218,14 +218,11 @@ function addjob(value,event){
   toadminpage();
 }
 
-
-  
 document.addEventListener("DOMContentLoaded",()=>{
   if(!localStorage.getItem("isAdmin")){
     logout();
     return;
   }
-  
   const addjobform = document.getElementById("addjob-form");
 
   //this statements catches the jobobject sent through urlparams
