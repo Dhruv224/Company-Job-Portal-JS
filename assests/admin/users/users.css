@@ -1,0 +1,126 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+    height: 50px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    
+}
+
+.title{
+    font-size: 25px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.middle{
+    display: flex;
+    gap: 50px;
+    font-size: 20px;
+    list-style: none;
+}
+
+.middle li{
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.5s;
+}
+
+a{
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.5s;
+    color: black;
+}
+
+.middle li:hover{
+    color: grey;
+    scale: 1.1;
+}
+
+a:hover{
+    color: grey;
+}
+
+.btn, #btn{
+    padding: 5px 8px;
+    border: 2px solid blue;
+    color: white;
+    background-color: rgb(31, 31, 227);
+    border-radius: 4px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.btn:hover, #btn:hover{
+    background-color: white;
+    color: rgb(31, 31, 227);
+}
+
+#all-users-list{
+    margin: 50px;
+}
+
+.btn{
+    padding: 5px 8px;
+    border: 2px solid tomato;
+    color: white;
+    background-color: tomato;
+    border-radius: 4px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.updateBtn{
+    border: 2px solid rgb(31, 31, 227);
+    background-color: rgb(31, 31, 227);
+}
+
+.btn:hover{
+    background-color: white;
+    color: tomato;
+}
+
+.updateBtn:hover{
+    background-color: white;
+    color: rgb(31, 31, 227);
+}
+
+#user-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+  
+#user-table th, #user-table td {
+    border: 1px solid #dddddd;
+    padding: 12px;
+    text-align: center;
+}
+  
+#user-table th {
+    background-color: #f2f2f2;
+}
+  
+#user-table td[rowspan] {
+    vertical-align: middle;
+}
+
+#user-table input{
+    border: none;
+    padding: 5px 10px;
+    outline: none;
+}

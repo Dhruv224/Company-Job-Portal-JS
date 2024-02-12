@@ -1,66 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="addjob.css">
-    <link rel="stylesheet" href="../admin.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="addjob.css" />
+    <link rel="stylesheet" href="../admin.css" />
     <script src="addjob.js" defer></script>
     <title>add job</title>
-</head>
-<body>
+  </head>
+  <body>
     <nav>
-        <h3 class="title">Admin Page</h3>
-        <ul class="middle">
-            <li onclick="toadminpage()"> 
-               posted job
-            </li>
-            <li > 
-                add job
-             </li>
-             </ul>
-        <button type="submit" id="btn" onclick="logout(event)">Logout</button>
-
+      <h3 class="title">Admin Page</h3>
+      <ul class="middle">
+        <li onclick="toadminpage()">posted job</li>
+        <li>add job</li>
+      </ul>
+      <button type="submit" id="btn" onclick="logout(event)">Logout</button>
     </nav>
 
     <div class="main">
-       
-        <div class="addjob">
-            <h2 id="heading">Add Job</h2>
-            <form id="addjob-form">
-                <div id="j-title-div">
-                    <label for="jtitle">Job Title</label>
-                    <input type="text" id="j-title" placeholder="Enter job title" required>
-                </div>
-                <div id="j-type-div">
-                    <label for="j-type">Job Type</label>
-                    <input type="text" id="j-type" placeholder="Enter job type" required>
-                </div>
+      <div class="addjob">
+        <h2 id="heading">Add Job</h2>
+        <form id="addjob-form">
+          <div id="j-title-div">
+            <label for="jtitle">Job Title</label>
+            <input
+              type="text"
+              id="j-title"
+              placeholder="Enter job title"
+              required
+            />
+          </div>
+          <div id="j-type-div">
+            <label for="j-type">Job Type</label>
+            <input
+              type="text"
+              id="j-type"
+              placeholder="Enter job type"
+              required
+            />
+          </div>
 
-                <div id="j-desc-div">
-                    <label for="j-desc">Job Description</label>
-                    <input type="text" id="j-desc" placeholder="Enter job description" required>
-                </div>
+          <div id="j-desc-div">
+            <label for="j-desc">Job Description</label>
+            <input
+              type="text"
+              id="j-desc"
+              placeholder="Enter job description"
+              required
+            />
+          </div>
 
-                <div id="j-salary-div">
-                    <label for="j-salary">Salary</label>
-                    <input type="text" id="j-salary" placeholder="Enter job Salary" required>
-                </div>
+          <div id="j-salary-div">
+            <label for="j-salary">Salary</label>
+            <input
+              type="text"
+              id="j-salary"
+              placeholder="Enter job Salary"
+              required
+            />
+          </div>
 
-                <div id="j-location-div">
-                    <label for="j-location">Location</label>
-                    <input type="text" id="j-location" placeholder="Enter job Location" required>
-                </div>
+          <div id="j-location-div">
+            <label for="j-location">Location</label>
+            <input
+              type="text"
+              id="j-location"
+              placeholder="Enter job Location"
+              required
+            />
+          </div>
 
-                <div id="j-company-div">
-                    <label for="j-company">Companyname</label>
-                    <input type="text" id="j-company" placeholder="Enter Companyname" required>
-                </div>
-                <button type="submit" id="button">Submit</button>
-
-                 </form>
-        </div>
+          <div id="j-company-div">
+            <label for="j-company">Companyname</label>
+            <input
+              type="text"
+              id="j-company"
+              placeholder="Enter Companyname"
+              required
+            />
+          </div>
+          <button type="submit" id="button">Submit</button>
+        </form>
+      </div>
     </div>
-</body>
+  </body>
 </html>
