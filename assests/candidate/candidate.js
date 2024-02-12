@@ -111,10 +111,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
   }
 
   let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+  let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
 
   let allJobsList = document.getElementById("all-jobs-list");
   let langDropDown = document.getElementById("lang-drop-down");
   let salaryDropDown = document.getElementById("salary-drop-down");
+  let paginationBtns = document.getElementById("pagination-btns");
 
   let jobId = null;
   let isAppliedJob = false;
@@ -122,43 +124,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
   let minSalary = jobs.reduce((min, job) => Math.min(min, job.salary), Infinity);
   let maxSalary = jobs.reduce((max, job) => Math.max(max, job.salary), -Infinity);
   let salaryVal = "All";
+  let currPage = 1;
+  let cardPerPage = 3;
 
-  // Event Listener for click event on Apply button on job card
-  const applyBtnFunc = (event) => {
-    jobId = event.target.id;
-    document.getElementById("pop-up").style.display = "block";
-    document.documentElement.scrollTop = 0;
-    document.body.style.overflow = "hidden";
-    let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
-    document.getElementById("username").value = user.username;
-  };
-
-  // Event Listener for click event on Withraw button on job card
-  const withdrawBtn = (event) => {
-    jobId = event.target.id;
-
-    let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-    let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
-
-    let updatedJobs = jobs.map((job) => {
-      if (Number(jobId) === Number(job.jobId)) {
-        job.appliedBy = job.appliedBy.filter((currUser) => {
-          return currUser.id !== user.id;
-        });
-      }
-
-      return job;
-    });
-
-    localStorage.setItem("jobs", JSON.stringify(updatedJobs));
-
-    allJobsList.innerHTML = "";
-    updatedJobs.forEach((job) => {
-      displayJobs(job);
-    });
-  };
-
-  // Displaying job one by one
+  //=============================================================Displaying job one by one
   const displayJobs = (job) => {
     let jobCard = document.createElement("div");
     jobCard.classList.add("job-card");
@@ -201,25 +170,73 @@ document.addEventListener("DOMContentLoaded", (event) => {
     allJobsList.appendChild(jobCard);
   };
 
-  // displaying jobs when user visits the candidate page
-  const displayJobsOnLoad = () => {
-    jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-    let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
+  //=============================================================Pagination
+  const pagination = (jobs) => {
+    let numPages = Math.ceil(jobs.length / cardPerPage);
 
-    document.getElementsByClassName("title")[0].innerHTML = `Welcome, <span>${user.username.charAt(0).toUpperCase() + user.username.slice(1)}</span> `;
-
-    if (jobs.length === 0) {
-        allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
+    if (jobs.length > cardPerPage) {
+      paginationBtns.style.display = "flex";
+    } else {
+      paginationBtns.style.display = "none";
     }
 
-    jobs.forEach((job) => {
-        displayJobs(job);
-    });
-  }
-  displayJobsOnLoad();
+    if (jobs.length > cardPerPage) {
+      paginationBtns.innerHTML = "";
+      for (let i = 1; i <= numPages; i++) {
+          let btn = document.createElement("button");
+          btn.innerHTML = i;
+          btn.id = i;
+          btn.classList.add("btn");
+          btn.addEventListener("click", () => {
+            currPage = i;
+            pagination(jobs);
+          });
+          paginationBtns.appendChild(btn);
+      }
+    }
 
-  // Search functionality based on title, company and type of job and filter functionality based on salary and job type
+    allJobsList.innerHTML = "";
+    let startInd = (currPage-1)*cardPerPage;
+    let endInd = startInd + cardPerPage;
+    let jobCardParPagesArr = jobs.slice(startInd, endInd);
+    jobCardParPagesArr.forEach(job => displayJobs(job));
+  }
+
+  //=============================================================Event Listener for click event on Apply button on job card
+  const applyBtnFunc = (event) => {
+    jobId = event.target.id;
+    user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
+
+    document.getElementById("pop-up").style.display = "block";
+    document.documentElement.scrollTop = 0;
+    document.body.style.overflow = "hidden";
+
+    document.getElementById("username").value = user.username;
+  };
+
+  //=============================================================Event Listener for click event on Withraw button on job card
+  const withdrawBtn = (event) => {
+    jobId = event.target.id;
+
+    jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+    user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
+
+    let updatedJobs = jobs.map((job) => {
+      if (Number(jobId) === Number(job.jobId)) {
+        job.appliedBy = job.appliedBy.filter((currUser) => {
+          return currUser.id !== user.id;
+        });
+      }
+      return job;
+    });
+
+    localStorage.setItem("jobs", JSON.stringify(updatedJobs));
+    pagination(updatedJobs);
+  };
+
+  //=============================================================Search functionality based on title, company and type of job and filter functionality based on salary and job type
   const handleSearch = (event) => {
+    currPage = 1;
     salaryVal = salaryVal.toString().split(",");
     let currMinSalary = salaryVal[0];
     let currMaxSalary = salaryVal[1];
@@ -255,17 +272,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
       return;
     }
 
-    allJobsList.innerHTML = "";
-    updatedJobs.forEach((job) => {
-      displayJobs(job);
-    });
-    
+    pagination(updatedJobs);   
 }
 
-// Event listener on Search input tag
-document.getElementById("search").addEventListener("input", handleSearch);
+  //=============================================================Event listener on Search input tag
+  document.getElementById("search").addEventListener("input", handleSearch);
 
-  // adding unique job type in dropdown menu
+  //=============================================================adding unique job type in dropdown menu dynamically
   [...new Set(jobs.map(job => job.type))].forEach((languageType) => {
     let option = document.createElement("option");
     option.value = languageType;
@@ -274,13 +287,13 @@ document.getElementById("search").addEventListener("input", handleSearch);
     langDropDown.appendChild(option);
   });
 
-  // Event Listener on job type drop down
+  //=============================================================Event Listener on job type drop down
   langDropDown.addEventListener("change", (event) => {
     languageType = event.target.value;
     handleSearch();
   });
 
-  // adding salary range in salary dropdown menu
+  //=============================================================adding salary range in salary dropdown menu dynamically
   for (let i = 0; i < 5; i++) {
     let salaryIncrement = (maxSalary - minSalary) / 5;
     let option = document.createElement("option");
@@ -291,31 +304,29 @@ document.getElementById("search").addEventListener("input", handleSearch);
     salaryDropDown.appendChild(option);
   }
 
-  // Event Listener on salary drop down
+  //=============================================================Event Listener on salary drop down
   salaryDropDown.addEventListener("change", (event) => {
     salaryVal = event.target.value;
     handleSearch();
   });
 
-  // displaying All jobs when user clicks on AllJobs from navbar
+  //=============================================================displaying All jobs when user clicks on AllJobs from navbar
   document.getElementById("allJobs").addEventListener("click", () => {
     isAppliedJob = false;
-    let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+    jobs = JSON.parse(localStorage.getItem("jobs")) || [];
     if (jobs.length === 0) {
       allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
     }
-    allJobsList.innerHTML = "";
-    jobs.forEach((job) => {
-      displayJobs(job);
-    });
+    
+    pagination(jobs);
   });
 
-  // displaying filtered jobs when user clicks on AppliedJobs from navbar
+  //=============================================================displaying filtered jobs when user clicks on AppliedJobs from navbar
   document.getElementById("applidJobs").addEventListener("click", () => {
     isAppliedJob = true;
 
-    let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-    let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
+    jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+    user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
 
     let updatedJobs = jobs.filter((job) => {
       let exists = job.appliedBy?.findIndex(
@@ -328,20 +339,18 @@ document.getElementById("search").addEventListener("input", handleSearch);
       allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
       return;
     }
-    allJobsList.innerHTML = "";
-    updatedJobs.forEach((job) => {
-      displayJobs(job);
-    });
+    
+    pagination(updatedJobs);
   });
 
-  // handling pop-up menu close function when user clicks ouside the popup menu
+  //=============================================================handling pop-up menu close function when user clicks ouside the popup menu
   document.getElementById("pop-up").addEventListener("click", (event) => {
     if (!event.target.closest("#pop-up-form")) {
       document.getElementById("pop-up").style.display = "none";
     }
   });
 
-  // Handling pop-up form when user clicks on apply button on job card
+  //=============================================================Handling pop-up form when user clicks on apply button on job card
   document.getElementById("pop-up-form").addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -355,13 +364,9 @@ document.getElementById("search").addEventListener("input", handleSearch);
       alert("Enter username and email");
       return;
     }
-    // console.log(fileObject)
-    // let blob = new Blob([fileObject.data], { type: fileObject.type });
-    // let fileURL = URL.createObjectURL(blob);
-    // console.log("File URL:", fileURL);
     
-    let user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
-    let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+    user = JSON.parse(localStorage.getItem("isAuthenticated")) || {};
+    jobs = JSON.parse(localStorage.getItem("jobs")) || [];
 
     let fileObject = {
       name: pdfFile.name,
@@ -395,4 +400,8 @@ document.getElementById("search").addEventListener("input", handleSearch);
     window.location.href = "candidate.html";
     return;
   });
+
+  //=============================================================displaying Card on Candidate page
+  document.getElementsByClassName("title")[0].innerHTML = `Welcome, <span>${user?.username?.charAt(0).toUpperCase() + user?.username?.slice(1)}</span> `;
+  pagination(jobs);
 });

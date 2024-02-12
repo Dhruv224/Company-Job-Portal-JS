@@ -119,6 +119,7 @@ nav{
     outline: 2px solid #635e5e;
     outline-offset: 0px;
     transition: all 0.5s;
+    height: 300px;
 }
 
 .job-card:hover{
@@ -140,6 +141,13 @@ nav{
 .job-card p span{
     color: black;
     font-weight: 700;
+}
+
+#pagination-btns{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100vw;
 }
 
 #pop-up{
