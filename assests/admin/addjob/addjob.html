@@ -18,7 +18,7 @@
         <li>add job</li>
         <li onclick="redirectToUsersPage()">Users CRUD</li>
       </ul>
-      <button type="submit" id="btn" onclick="logout(event)">Logout</button>
+      <button type="submit" id="btn" onclick="logout()">Logout</button>
     </nav>
 
     <div class="main">
@@ -65,6 +65,12 @@
           window.location.href = "../../login/login.html";
           return;
         }
+  
+        const redirectToUsersPage = () => {
+          window.location.href = "../users/users.html";
+          return;
+        }
       </script>
+  
   </body>
 </html>
