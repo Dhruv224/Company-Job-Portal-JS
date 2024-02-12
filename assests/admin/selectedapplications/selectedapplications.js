@@ -1,4 +1,9 @@
-
+const logout = () => {
+    localStorage.removeItem("isAdmin");
+    window.location.href = "../../login/login.html";
+    return;
+  };
+  
 ////=============================================================this function deltes the candidate data from selectedapplicationpage and selected list
 function deletecandidate(candidateId,jobid){
 
@@ -36,6 +41,13 @@ function topostedjob () {
     window.location.href="../admin.html"
 }
 
+////=============================================================redirects to user Crud page
+function redirectToUsersPage() {
+    window.location.href = "./users/users.html";
+    return;
+  }
+  
+
 ////=============================================================defines the structure of the page using jobs array from localstorage
 function postedjob(candidateslist,jobid){
     
@@ -50,14 +62,14 @@ function postedjob(candidateslist,jobid){
     emoloyeeCard.innerHTML = `
     <h1>${list.username}</h1>
     <p><span>Email: </span>${list.email}</p>
-    <p><span>Resume: </span>Rs.${list.pdf}</p>
+    <p><span>Resume: </span>${list.pdfFile.name}</p>
 `;
 
         // // creating button to delete the use application from selected list
-        let button = document.createElement("button");
-        button.textContent = "delete";
-        button.id = "btn";
-        button.onclick = ()=>{
+        let dltbutton = document.createElement("button");
+        dltbutton.textContent = "delete";
+        dltbutton.id = "dltbtn";
+        dltbutton.onclick = ()=>{
             console.log(list.id)
             deletecandidate(list.id,jobid);
         console.log("delete is clicked")
@@ -73,7 +85,7 @@ function postedjob(candidateslist,jobid){
         console.log("update is clicked")
         }
   
-        emoloyeeCard.appendChild(button);
+        emoloyeeCard.appendChild(dltbutton);
         emoloyeeCard.appendChild(resumebtn);
         
         // adding job card to DOM
@@ -96,6 +108,10 @@ function postedjob(candidateslist,jobid){
 
 ////=============================================================search functionality 
     document.getElementById("search").addEventListener("input", (event) => {
+        if(!localStorage.getItem("isAdmin")){
+            window.location.href = "../login/login.html";
+            return;
+        }
 
         // taking value from user input 
         let searchQuery = event.target.value.toLowerCase();
@@ -118,7 +134,11 @@ function postedjob(candidateslist,jobid){
 
 
 document.addEventListener("DOMContentLoaded",()=>{
-
+    if(!localStorage.getItem("isAdmin")){
+        logout();
+        return;
+      }
+      
 //this statements retrives the jobobject sent through urlparams
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);

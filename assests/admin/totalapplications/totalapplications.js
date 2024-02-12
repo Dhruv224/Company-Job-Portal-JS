@@ -1,3 +1,10 @@
+const logout = () => {
+    localStorage.removeItem("isAdmin");
+    window.location.href = "../../login/login.html";
+    return;
+  };
+  
+
 ////=============================================================this function deletes the candidate data from totalapplicationpage and appliedBy list
 function deletecandidate(candidateId,jobid){
    
@@ -43,7 +50,7 @@ const candidateindex = candidatelist.findIndex((candidate) => candidate.id === c
 //if candidate was in selectedarry then it is removed from appliedBy list to selected list 
 job.selected.push(candidatelist[candidateindex]);
 
-    candidatelist.splice(candidateindex,1);
+    // candidatelist.splice(candidateindex,1);
    
     job.appliedBy = candidatelist;
    
@@ -77,15 +84,15 @@ function postedjob(candidateslist,jobid){
     emoloyeeCard.innerHTML = `
     <h1>${list.username}</h1>
     <p><span>Email: </span>${list.email}</p>
-    <p><span>Resume: </span>Rs.${list.pdf}</p>
+    <p><span>Resume: </span>${list.pdfFile.name}</p>
    
 `;
 
       // // creating button to delete the use application from appliedBy list
-      let button = document.createElement("button");
-        button.textContent = "delete";
-        button.id = "btn";
-        button.onclick = ()=>{
+      let dltbutton = document.createElement("button");
+        dltbutton.textContent = "delete";
+        dltbutton.id = "dltbtn";
+        dltbutton.onclick = ()=>{
             console.log(list.id)
             deletecandidate(list.id,jobid);
         console.log("delete is clicked")
@@ -100,7 +107,7 @@ function postedjob(candidateslist,jobid){
             selectcandidate(list.id,jobid);
         }
 
-        emoloyeeCard.appendChild(button);
+        emoloyeeCard.appendChild(dltbutton);
         emoloyeeCard.appendChild(selectbtn);
      
         // adding emoloyeeCard to DOM
@@ -146,6 +153,10 @@ function postedjob(candidateslist,jobid){
         })});}
 
 document.addEventListener("DOMContentLoaded",()=>{
+    if(!localStorage.getItem("isAdmin")){
+        logout();
+        return;
+    }
 
 //this statements retrives the jobobject sent through urlparams
     const queryString = window.location.search;
