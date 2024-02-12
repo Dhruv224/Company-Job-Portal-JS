@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link rel="stylesheet" href="users.css">
+    <script src="users.js" defer></script>
+</head>
+<body>
+    <div>
+        <nav>
+            <h3 class="title">Candidate Page</h3>
+            <ul class="middle">
+                <li> <a href="../admin.html">Admin Page</a></li>
+                <li id="allUsers"><a href="./users.html">All Users</a></li>
+                <li id="newUser"><a href="../addUser/addUser.html">New User</a></li>
+            </ul>
+
+            <button type="submit" id="btn" onclick="logout()">Logout</button>
+        </nav>
+
+        <div id="all-users-list">
+            <table id="user-table">
+                <tr>
+                  <th>Id</th>
+                  <th>Username</th>
+                  <th>Applied for any job?</th>
+                  <th>Title</th>
+                  <th>Job Type</th>
+                  <th>#</th>
+                  <th>#</th>
+                </tr>
+
+                <!-- <tr>
+                    <td rowspan="2">0</td>
+                    <td rowspan="2">dp</td>
+                    <td>yes</td>
+                    <td>Backend Engineer</td>
+                    <td>Node.js</td>
+                </tr>
+
+                <tr>
+                    <td>UI/UX Designer</td>
+                    <td>front</td>
+                </tr> -->
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const logout = () => {
+            localStorage.removeItem("isAdmin");
+            window.location.href = "../../login/login.html";
+            return;
+        }
+    </script>
+</body>
+</html>
