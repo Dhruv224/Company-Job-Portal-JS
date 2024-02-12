@@ -6,7 +6,7 @@ let defaultjobs = [
       type: "React.js",
       salary: 60000,
       location: "Remote",
-      companyName: "Google",
+      company: "Google",
       appliedBy: [{id: 1, username: "dp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},{id: 2, username: "vp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"}, {id: 3, username: "jp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"}],
       selected:[{id: 4, username: "kp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},{id: 5, username: "rp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},{id: 6, username: "np", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},]
     },
@@ -17,7 +17,7 @@ let defaultjobs = [
       type: "Node.js",
       salary: 70000,
       location: "San Francisco, CA",
-      companyName: "Bacancy",
+      company: "Bacancy",
       appliedBy: [],
     },
     {
@@ -27,7 +27,7 @@ let defaultjobs = [
       type: "Python",
       salary: 15000,
       location: "New York, NY",
-      companyName: "Google",
+      company: "Google",
       appliedBy: [],
     },
     {
@@ -37,7 +37,7 @@ let defaultjobs = [
       type: "Python",
       salary: 25000,
       location: "Remote",
-      companyName: "Bacancy",
+      company: "Bacancy",
       appliedBy: [],
     },
     {
@@ -47,7 +47,7 @@ let defaultjobs = [
       type: "Java",
       salary: 50000,
       location: "Austin, TX",
-      companyName: "Google",
+      company: "Google",
       appliedBy: [],
     },
     {
@@ -57,7 +57,7 @@ let defaultjobs = [
       type: "Java",
       salary: 37000,
       location: "Boston, MA",
-      companyName: "SoftCo",
+      company: "SoftCo",
       appliedBy: [],
     },
     {
@@ -67,7 +67,7 @@ let defaultjobs = [
       type: "Docker",
       salary: 80000,
       location: "Seattle, WA",
-      companyName: "Microsoft",
+      company: "Microsoft",
       appliedBy: [],
     },
     {
@@ -77,7 +77,7 @@ let defaultjobs = [
       type: "Docker",
       salary: 90000,
       location: "San Jose, CA",
-      companyName: "Microsoft",
+      company: "Microsoft",
       appliedBy: [],
     },
     {
@@ -87,7 +87,7 @@ let defaultjobs = [
       type: "React.js",
       salary: 80000,
       location: "Chicago, IL",
-      companyName: "Bacancy",
+      company: "Bacancy",
       appliedBy: [],
     },
     {
@@ -97,11 +97,24 @@ let defaultjobs = [
       type: "Node.js",
       salary: 45000,
       location: "Denver, CO",
-      companyName: "Microsoft",
+      company: "Microsoft",
       appliedBy: [],
     },
   ];
-  localStorage.setItem("jobs", JSON.stringify(defaultjobs));
+  // localStorage.setItem("jobs", JSON.stringify(defaultjobs));
+
+
+  const logout = () => {
+    localStorage.removeItem("isAdmin");
+    window.location.href = "../../login/login.html";
+    return;
+  };
+
+  ////=============================================================redirects to user Crud page
+function redirectToUsersPage() {
+  window.location.href = "./users/users.html";
+  return;
+}
 
   ////=============================================================this function redirects to add job page 
 function toadminpage() {window.location.href='../admin.html'}
@@ -115,7 +128,7 @@ function addjob(value,event){
       let description = document.getElementById("j-desc")?.value;
       let salary = document.getElementById("j-salary")?.value;
       let location = document.getElementById("j-location")?.value;
-      let companyname = document.getElementById("j-company")?.value;
+      let company = document.getElementById("j-company")?.value;
 
  //jobs are being copied in local storage in jobs array
  let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
@@ -124,7 +137,7 @@ function addjob(value,event){
  console.log(title);
  console.log(salary);
  console.log(location);
- console.log(companyname);
+ console.log(company);
 
     if(value){
 //this block executes when job is getting updated
@@ -137,7 +150,7 @@ function addjob(value,event){
        jobToUpdate.type = type;
        jobToUpdate.salary = salary;
        jobToUpdate.location = location;
-       jobToUpdate.companyname = companyname;
+       jobToUpdate.company = company;
        
        console.log(jobToUpdate);
        console.log(jobs);
@@ -146,16 +159,19 @@ function addjob(value,event){
     else{
       //this block executes when new job is getting created
         //new job is created by this object in jobs array
+        let uniqueId = parseInt((jobs[jobs.length-1]?.jobId || 0) + 1);
+
+        
     const newjob = {
-            jobId : jobs.length + 1,
+            jobId : uniqueId,
             title : title,
             desc : description,
             type : type,
             salary: salary,
             location: location,
-            companyname: companyname,
-            appliedBy:[{id: 1, username: "dp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},{id: 2, username: "vp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"}, {id: 3, username: "jp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"}],
-            selected:[{id: 4, username: "kp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},{id: 5, username: "rp", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},{id: 6, username: "np", password: "dp",email:"dp@gmail.com",pdf:"resume.path"},],         
+            company: company,
+            appliedBy:[],
+            selected:[],         
  }
 
              jobs.push(newjob);
@@ -169,6 +185,11 @@ function addjob(value,event){
 
 
 document.addEventListener("DOMContentLoaded",()=>{
+  if(!localStorage.getItem("isAdmin")){
+    logout();
+    return;
+  }
+  
 
     const addjobform = document.getElementById("addjob-form");
        
@@ -191,7 +212,7 @@ console.log(job);
     document.getElementById('j-type').value = job.type || '';
     document.getElementById('j-salary').value = job.salary || '';
     document.getElementById('j-location').value = job.location || '';
-    document.getElementById('j-company').value = job.companyname || '';
+    document.getElementById('j-company').value = job.company || '';
 
     addjobform.addEventListener("submit",(event)=>{
         

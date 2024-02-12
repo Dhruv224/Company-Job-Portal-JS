@@ -43,17 +43,22 @@ nav{
     scale: 1.1;
 }
 
-#btn ,#uptbtn , #tapp ,#sapp{
+#btn ,#dltbtn,#uptbtn , #tapp ,#sapp{
     padding: 5px 8px;
-    border: 2px solid red;
+    border: 2px solid blue;
     color: white;
-    background-color: rgb(227, 31, 31);
+    background-color: rgb(31, 31, 227);
     border-radius: 4px;
     transition: all 0.5s;
     cursor: pointer;
     
 }
-
+#dltbtn {
+  
+    border: 2px solid red;
+    background-color: rgb(227, 31, 31);
+    margin-left: 5px;
+}
 #uptbtn {
   
     border: 2px solid blue;
@@ -73,12 +78,29 @@ nav{
     margin-left: 5px;
 }
 
-#btn:hover , #uptbtn:hover, #tapp:hover,#sapp:hover{
+#btn:hover ,#dltbtn:hover, #uptbtn:hover, #tapp:hover,#sapp:hover{
     background-color: white;
     color: rgb(31, 31, 227);
 }
-
-
+.btn{
+    padding: 5px 8px;
+    border: 2px solid blue;
+    color: white;
+    background-color: rgb(31, 31, 227);
+    border-radius: 4px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.btn:hover{
+    background-color: white;
+    color: rgb(31, 31, 227);
+}
+#pagination-btns{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100vw;
+}
 
 .search-container{
     display: flex;

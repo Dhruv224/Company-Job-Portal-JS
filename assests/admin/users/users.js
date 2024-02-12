@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     event.preventDefault();
 
     if(!localStorage.getItem("isAdmin")){
-        window.location.href = "../../login/login.html";
+        window.location.href = "../../login/login.html"
         return;
     }else{
         document.getElementsByClassName("title")[0].innerHTML = `Welcome, Admin`;

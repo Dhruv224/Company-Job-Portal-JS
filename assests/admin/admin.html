@@ -1,38 +1,32 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home page</title>
-    <link rel="stylesheet" href="admin.css" />
-    <script src="admin.js" defer></script>
-  </head>
-  <body>
+    <link rel="stylesheet" href="admin.css">
+   
+</head>
+<body>
     <div>
-      <nav>
-        <h3 class="title">Admin Page</h3>
-        <ul class="middle">
-          <li>posted job</li>
-          <li onclick="toaddjob()">add job</li>
-          <li onclick="redirectToUsersPage()">Users CRUD</li>
-        </ul>
-        <button type="submit" id="btn" onclick="logout(event)">Logout</button>
-      </nav>
-
-      <div id="dynamic-content">
-        <div class="search-container">
-          <input
-            type="text"
-            id="search"
-            placeholder="Search by title or type of job here..."
-            autofocus
-          />
-        </div>
-
-<<<<<<< HEAD
+        <nav>
+            <h3 class="title">Admin Page</h3>
+            <ul class="middle">
+                <li > 
+                   posted job
+                </li>
+                <li onclick="toaddjob()"> 
+                    add job
+                 </li>
+                 <li onclick="redirectToUsersPage()">Users CRUD</li>
+                 </ul>
+            <button type="submit" id="btn" onclick="logout(event)">Logout</button>
+        </nav>
         <div id="dynamic-content"> 
-             
+
             <div class="search-container">
+                <!-- <input type="text" id="search" placeholder="Search by title or type of job here..." autofocus> -->
                 <input type="text" id="search" placeholder="Search by title, company type of job here..." autofocus>
                 <div class="drop-down">
                     <select id="salary-drop-down">
@@ -42,15 +36,14 @@
                         <option value="All" selected>All Jobs</option>
                     </select>
                 </div>
+
             </div>
-    
+
                 <div id="all-jobs-list"> 
                 </div>
+                <div id="pagination-btns"></div>
      </div>
-=======
-        <div id="all-jobs-list"></div>
-      </div>
->>>>>>> a3c17e964fda195cd24a9360a48d93cb5d16fc1c
     </div>
-  </body>
+    <script src="admin.js" defer></script>
+</body>
 </html>

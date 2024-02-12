@@ -43,17 +43,22 @@ nav{
     scale: 1.1;
 }
 
-#btn ,#resumebtn , #tapp {
+#btn ,#resumebtn , #tapp,#dltbtn {
     padding: 5px 8px;
-    border: 2px solid red;
+    border: 2px solid blue;
     color: white;
-    background-color: rgb(227, 31, 31);
-    border-radius: 4px;
+    background-color: rgb(31, 31, 227);
+     border-radius: 4px;
     transition: all 0.5s;
     cursor: pointer;
     
 }
-
+#dltbtn {
+  
+    border: 2px solid red;
+    background-color: rgb(227, 31, 31);
+    margin-left: 5px;
+}
 #resumebtn {
   
     border: 2px solid blue;
@@ -67,7 +72,7 @@ nav{
     margin-left: 5px;
 }
 
-#btn:hover , #resumebtn:hover, #tapp:hover{
+#btn:hover , #resumebtn:hover, #tapp:hover,#dltbtn:hover{
     background-color: white;
     color: rgb(31, 31, 227);
 }
