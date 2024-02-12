@@ -1,17 +1,17 @@
-//logic for logout button
+////=============================================================logic for logout button
 const logout = () => {
     localStorage.removeItem("isAuthenticated");
     window.location.href = "../login/login.html"
     return;
 }
 
-//redirects to addjob page
+////=============================================================redirects to addjob page
 function toaddjob(){
     window.location.href='./addjob/addjob.html'
         
 }
 
-//this function deletes the postedjob
+////=============================================================this function deletes the postedjob
 function deletejob (jobid){
 
     //jobarray is assigned with jobs array from localstorage
@@ -40,7 +40,7 @@ function deletejob (jobid){
 window.location.reload();
 } 
 
-//this function defines the updation of posted job
+////=============================================================this function defines the updation of posted job
 function updatejob (jobid){
 
     //jobs got from localstorage 
@@ -66,7 +66,7 @@ function updatejob (jobid){
         console.log("Job not found");
     }}
 
-    //thi function defines when the admin wants to see the total applications
+    ////=============================================================this function defines when the admin wants to see the total applications
 function tappfunction(jobid){
 
      //jobs got from localstorage 
@@ -92,7 +92,7 @@ function tappfunction(jobid){
         console.log("Job not found");
     }}
 
- //thi function defines when the admin wants to see the total applications
+ ////=============================================================this function defines when the admin wants to see the total applications
 function sappfunction(jobid){
 
     //jobs got from localstorage 
@@ -117,7 +117,7 @@ function sappfunction(jobid){
     }
 
 }
-//this function shows the already posted job by admin and the home page for admin too
+////=============================================================this function shows the already posted job by admin and the home page for admin too
 function postedjob(){
     console.log("hello world")
     let allJobsList = document.querySelector("#all-jobs-list");
@@ -126,7 +126,7 @@ function postedjob(){
     //this function creates the ui for posted jobs the same function used in candidate page to show the jobs
     
 
-        // Displaying job one by one
+        ////=============================================================Displaying job one by one
   const displayJobs = (job) => {
     let jobCard = document.createElement("div");
     jobCard.classList.add("job-card");
@@ -189,7 +189,7 @@ function postedjob(){
         displayJobs(job);
     });
 
-// Search functionality based on title, company and type of job and filter functionality based on salary and job type
+////=============================================================Search functionality based on title, company and type of job and filter functionality based on salary and job type
 const handleSearch = (event) => {
     salaryVal = salaryVal.toString().split(",");
     let currMinSalary = salaryVal[0];
@@ -230,8 +230,7 @@ const handleSearch = (event) => {
     updatedJobs.forEach((job) => {
       displayJobs(job);
     });
-    
-}
+    }
 
 let langDropDown = document.getElementById("lang-drop-down");
 let salaryDropDown = document.getElementById("salary-drop-down");
@@ -276,7 +275,7 @@ salaryDropDown.addEventListener("change", (event) => {
   handleSearch();
 });
 
-// displaying All jobs when user clicks on AllJobs from navbar
+// //=============================================================displaying All jobs when user clicks on AllJobs from navbar
 document.getElementById("allJobs").addEventListener("click", () => {
   isAppliedJob = false;
   let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
@@ -289,14 +288,14 @@ document.getElementById("allJobs").addEventListener("click", () => {
   });
 });}
 
-//this function fetchs the addjob.html file to show on admin.html page as react does for components 
+////=============================================================this function fetchs the addjob.html file to show on admin.html page as react does for components 
         document.addEventListener("DOMContentLoaded", () => {
             // if(!localStorage.getItem("isAdmin")){
             //     window.location.href = "../login/login.html";
             //     return;
             // }
 
-              //this statement is used to show by default the posted job page on admin screen
+              ////=============================================================this statement is used to show by default the posted job page on admin screen
               postedjob();
         });
 

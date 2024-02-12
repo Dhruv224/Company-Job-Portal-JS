@@ -1,4 +1,4 @@
-//this function deletes the candidate data from totalapplicationpage and appliedBy list
+////=============================================================this function deletes the candidate data from totalapplicationpage and appliedBy list
 function deletecandidate(candidateId,jobid){
    
    // Ensure jobid is defined and has a valid value
@@ -24,7 +24,7 @@ const candidateindex = candidatelist.findIndex((candidate) => candidate.id === c
 
   location.reload();
 }
-
+//=============================================================this function selects the candidate data from totalapplicationpage and appliedBy list to send to selectedapplications page
 function selectcandidate(candidateId,jobid){
 
     // Ensure jobid is defined and has a valid value
@@ -53,22 +53,23 @@ job.selected.push(candidatelist[candidateindex]);
   location.reload();
 }
 
-//redirects to addjob.html page
+////=============================================================redirects to addjob.html page
 function toaddjob () {
     window.location.href="../addjob/addjob.html"
 }
 
+//=============================================================redirects to admin.html
 function topostedjob () {
     window.location.href="../admin.html"
 }
 
-//defines the structure of the page using jobs array from localstorage
+////=============================================================defines the structure of the page using jobs array from localstorage
 function postedjob(candidateslist,jobid){
     
     let allJobsList = document.querySelector("#all-jobs-list");
     allJobsList.innerHTML="";
 
-        // Displaying emoloyeeCard one by one
+        // //=============================================================Displaying emoloyeeCard one by one
   const displayJobs = (list) => {
     let emoloyeeCard = document.createElement("div");
     emoloyeeCard.classList.add("job-card");
@@ -122,7 +123,7 @@ function postedjob(candidateslist,jobid){
         displayJobs(candidate);
     });
 
-//search functionality 
+////=============================================================search functionality 
     document.getElementById("search").addEventListener("input", (event) => {
 
         // taking value from user input 
@@ -176,6 +177,6 @@ foundcandidates.push(applier);
 
 console.log(foundcandidates);
 
-//found candidates data is sent to display on selectedapplication.html page
+////=============================================================found candidates data is sent to display on selectedapplication.html page
 postedjob(foundcandidates,job.jobId);
 });

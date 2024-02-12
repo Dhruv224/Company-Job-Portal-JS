@@ -103,10 +103,10 @@ let defaultjobs = [
   ];
   localStorage.setItem("jobs", JSON.stringify(defaultjobs));
 
-  //this function redirects to add job page 
+  ////=============================================================this function redirects to add job page 
 function toadminpage() {window.location.href='../admin.html'}
 
-//this function creates the new job fro admin to show
+////=============================================================this function creates the new job fro admin to show
 function addjob(value,event){
     event.preventDefault();
       //job title ,type,and decription is set here 
@@ -166,6 +166,7 @@ function addjob(value,event){
       //after adding or updating job page automatically redirects to admin.html  
     toadminpage()
 }
+
 
 document.addEventListener("DOMContentLoaded",()=>{
 

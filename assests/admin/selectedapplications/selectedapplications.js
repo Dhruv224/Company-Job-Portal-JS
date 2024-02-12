@@ -1,5 +1,5 @@
 
-//this function deltes the candidate data from selectedapplicationpage and selected list
+////=============================================================this function deltes the candidate data from selectedapplicationpage and selected list
 function deletecandidate(candidateId,jobid){
 
 // Ensure jobid is defined and has a valid value
@@ -26,23 +26,23 @@ localStorage.setItem("jobs",JSON.stringify(jobsarray));
   location.reload();
 }
 
-//redirects to addjob.html page
+////=============================================================redirects to addjob.html page
 function toaddjob () {
     window.location.href="../addjob/addjob.html"
 }
 
-//redirects to admin.html page 
+////=============================================================redirects to admin.html page 
 function topostedjob () {
     window.location.href="../admin.html"
 }
 
-//defines the structure of the page using jobs array from localstorage
+////=============================================================defines the structure of the page using jobs array from localstorage
 function postedjob(candidateslist,jobid){
     
     let allJobsList = document.querySelector("#all-jobs-list");
     allJobsList.innerHTML="";
 
-        // Displaying emoloyeeCard one by one
+        // //=============================================================Displaying emoloyeeCard one by one
   const displayJobs = (list) => {
     let emoloyeeCard = document.createElement("div");
     emoloyeeCard.classList.add("job-card");
@@ -94,7 +94,7 @@ function postedjob(candidateslist,jobid){
         displayJobs(candidate);
     });
 
-//search functionality 
+////=============================================================search functionality 
     document.getElementById("search").addEventListener("input", (event) => {
 
         // taking value from user input 
