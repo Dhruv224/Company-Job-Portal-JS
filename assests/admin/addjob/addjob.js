@@ -215,15 +215,13 @@ function addjob(value,event){
   //after adding or updating job page automatically redirects to admin.html
   toadminpage();
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  const addjobform = document.getElementById("addjob-form");
-
-document.addEventListener("DOMContentLoaded",()=>{
-  if(!localStorage.getItem("isAdmin")){
-    logout();
-    return;
-  }
+  
+  document.addEventListener("DOMContentLoaded",()=>{
+    if(!localStorage.getItem("isAdmin")){
+      logout();
+      return;
+    }
+    const addjobform = document.getElementById("addjob-form");
   
   //this statements catches the jobobject sent through urlparams
   const queryString = window.location.search;
@@ -264,4 +262,4 @@ document.addEventListener("DOMContentLoaded",()=>{
       addjobform.reset();
     });
   }
-});})
+});

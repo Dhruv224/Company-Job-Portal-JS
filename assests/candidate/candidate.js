@@ -101,7 +101,7 @@ let jobs = [
   },
 ];
 
- localStorage.setItem("jobs", JSON.stringify(jobs));
+//  localStorage.setItem("jobs", JSON.stringify(jobs));
 
 document.addEventListener("DOMContentLoaded", (event) => {
   event.preventDefault();
