@@ -7,9 +7,7 @@ let jobs = [
     salary: 60000,
     location: "Remote",
     companyName: "Google",
-    appliedBy: [{id: 1, username: "dp", password: "dp"},{id: 2, username: "vp", password: "vp"},
-    {id: 3, username: "jp", password: "jp"}
-  ],
+    appliedBy:[]
   },
   {
     jobId: 2,
@@ -103,7 +101,7 @@ let jobs = [
   },
 ];
 
- localStorage.setItem("jobs", JSON.stringify(jobs));
+//  localStorage.setItem("jobs", JSON.stringify(jobs));
 
 document.addEventListener("DOMContentLoaded", (event) => {
   event.preventDefault();
@@ -127,7 +125,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   let maxSalary = jobs.reduce((max, job) => Math.max(max, job.salary), -Infinity);
   let salaryVal = "All";
   let currPage = 1;
-  let cardPerPage = 3;
+  let cardPerPage = 4;
 
   //=============================================================Displaying job one by one
   const displayJobs = (job) => {
@@ -174,7 +172,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   //=============================================================Pagination
   const pagination = (jobs) => {
-    let numPages = Math.ceil(jobs.length / cardPerPage);
+
+    let numPaginationBtn = Math.ceil(jobs.length / cardPerPage);
 
     if (jobs.length > cardPerPage) {
       paginationBtns.style.display = "flex";
@@ -182,9 +181,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
       paginationBtns.style.display = "none";
     }
 
+    if (jobs.length === 0) {
+      allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
+      return;
+    }
+
     if (jobs.length > cardPerPage) {
       paginationBtns.innerHTML = "";
-      for (let i = 1; i <= numPages; i++) {
+      for (let i = 1; i <= numPaginationBtn; i++) {
           let btn = document.createElement("button");
           btn.innerHTML = i;
           btn.id = i;
@@ -269,11 +273,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
       );
     });
 
-    if (updatedJobs.length === 0) {
-      allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
-      return;
-    }
-
     pagination(updatedJobs);   
 }
 
@@ -316,9 +315,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
   document.getElementById("allJobs").addEventListener("click", () => {
     isAppliedJob = false;
     jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-    if (jobs.length === 0) {
-      allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
-    }
     
     pagination(jobs);
   });
@@ -336,11 +332,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
       );
       return exists !== -1;
     });
-
-    if (updatedJobs.length === 0) {
-      allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
-      return;
-    }
     
     pagination(updatedJobs);
   });
@@ -393,17 +384,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
       if (jobIndex !== -1 && job.jobId === Number(jobId)) {
         job.appliedBy.push(newObj);
       }
-console.log("it worked");
       return job;
     });
 
     localStorage.setItem("jobs", JSON.stringify(updatedJobs));
-
     window.location.href = "candidate.html";
     return;
   });
 
+  
+
   //=============================================================displaying Card on Candidate page
-  document.getElementsByClassName("title")[0].innerHTML = `Welcome, <span>${user?.username?.charAt(0).toUpperCase() + user?.username?.slice(1)}</span> `;
+  document.getElementsByClassName("title")[0].innerHTML = `Welcome, <span style="color: rgb(31, 31, 227)">${user?.username?.charAt(0).toUpperCase() + user?.username?.slice(1)}</span> `;
   pagination(jobs);
 });

@@ -16,6 +16,8 @@
 .login{
     padding: 10px;
     border: 2px solid rgb(31, 31, 227);
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgb(31, 31, 227);
     width: min(300px, 50vw);
 }
 
@@ -45,6 +47,7 @@
     color: white;
     background-color: rgb(31, 31, 227);
     transition: all 0.5s;
+    cursor: pointer;
 }
 
 #btn:hover{
@@ -54,4 +57,5 @@
 
 #already-acc{
     margin-top: 10px;
+    text-align: center;
 }
