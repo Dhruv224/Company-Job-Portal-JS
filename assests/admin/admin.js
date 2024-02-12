@@ -2,7 +2,7 @@
 ////=============================================================logic for logout button
 const logout = () => {
   localStorage.removeItem("isAdmin");
-  window.location.href = "../../login/login.html";
+  window.location.href = "../login/login.html";
   return;
 };
 
