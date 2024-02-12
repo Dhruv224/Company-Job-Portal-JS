@@ -98,17 +98,7 @@ function postedjob(candidateslist,jobid){
         console.log("delete is clicked")
         }
 
-
-         // // creating button to select the user for given jobId
-         let selectbtn = document.createElement("button");
-         selectbtn.textContent = "select";
-         selectbtn.id = "selectbtn";
-         selectbtn.onclick = ()=>{ 
-            selectcandidate(list.id,jobid);
-        }
-
         emoloyeeCard.appendChild(dltbutton);
-        emoloyeeCard.appendChild(selectbtn);
      
         // adding emoloyeeCard to DOM
         allJobsList.appendChild(emoloyeeCard);

@@ -179,14 +179,14 @@ function postedjob() {
     let selectedapplications = document.createElement("button");
     selectedapplications.textContent = "selected applications";
     selectedapplications.id = "sapp";
-    selectedapplications.onclick = () => {
-      sappfunction(job.jobId);
-    };
+    // selectedapplications.onclick = () => {
+    //   sappfunction(job.jobId);
+    // };
 
     jobCard.appendChild(dltbutton);
     jobCard.appendChild(uptbutton);
     jobCard.appendChild(totalapplications);
-    jobCard.appendChild(selectedapplications);
+    // jobCard.appendChild(selectedapplications);
 
     // adding job card to DOM
     allJobsList.appendChild(jobCard);
