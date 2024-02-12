@@ -85,31 +85,6 @@ function tappfunction(jobid) {
   }
 }
 
-//thi function defines when the admin wants to see the total applications
-////=============================================================this function defines when the admin wants to see the total applications
-function sappfunction(jobid) {
-
-    //jobs got from localstorage 
-    const jobArray = JSON.parse(localStorage.getItem("jobs"));
-
-    //jobid made integer
-    jobid = parseInt(jobid, 10);
-
-    //jobToSend is filled with that job which matches the jobid as parameter and JobId from jobs array 
-    const jobToSend = jobArray.find((job) => job.jobId === jobid);
-
-    //if jobToSend found this block works
-    if (jobToSend) {
-        // Convert the job details to a query string
-        const queryString = `?job=${encodeURIComponent(JSON.stringify(jobToSend))}`;
-
-        // Redirect to selectedapplications.html with the query string
-        window.location.href = `./selectedapplications/selectedapplications.html${queryString}`;
-    } else {
-        console.log("Job not found");
-    }
-
-}
 //this function shows the already posted job by admin and the home page for admin too
 ////=============================================================this function shows the already posted job by admin and the home page for admin too
 function postedjob() {
@@ -175,31 +150,16 @@ function postedjob() {
     totalapplications.onclick = () => {
       tappfunction(job.jobId);
     };
-    // // creating button for to see total selected applications of job
-    let selectedapplications = document.createElement("button");
-    selectedapplications.textContent = "selected applications";
-    selectedapplications.id = "sapp";
-    selectedapplications.onclick = () => {
-      sappfunction(job.jobId);
-    };
+    
 
     jobCard.appendChild(dltbutton);
     jobCard.appendChild(uptbutton);
     jobCard.appendChild(totalapplications);
-    jobCard.appendChild(selectedapplications);
-
+    
     // adding job card to DOM
     allJobsList.appendChild(jobCard);
   };
-  // displaying jobs when user visits the candidate page
-  //  jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-  // if (jobs.length === 0) {
-  //   allJobsList.innerHTML = "<h1>No Job Found!!</h1>";
-  // }
-  // jobs.forEach((job) => {
-  //   displayJobs(job);
-  // });
-
+  
   //=============================================================Pagination
   const pagination = (jobs) => {
     if (jobs.length === 0) {

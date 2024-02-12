@@ -155,6 +155,7 @@ function toadminpage() {
 ////=============================================================this function creates the new job fro admin to show
 function addjob(value,event){
     event.preventDefault();
+    console.log("add job called")
       //job title ,type,and decription is set here 
       let title = document.getElementById("j-title")?.value;
       let type = document.getElementById("j-type")?.value;
@@ -204,7 +205,8 @@ function addjob(value,event){
             location: location,
             company: company,
             appliedBy:[],
-            selected:[],         
+            selected:[],      
+           
  }
 
     jobs.push(newjob);
@@ -215,14 +217,14 @@ function addjob(value,event){
   //after adding or updating job page automatically redirects to admin.html
   toadminpage();
 }
-  
-  document.addEventListener("DOMContentLoaded",()=>{
-    if(!localStorage.getItem("isAdmin")){
-      logout();
-      return;
-    }
-    const addjobform = document.getElementById("addjob-form");
-  
+
+document.addEventListener("DOMContentLoaded",()=>{
+  if(!localStorage.getItem("isAdmin")){
+    logout();
+    return;
+  }
+  const addjobform = document.getElementById("addjob-form");
+
   //this statements catches the jobobject sent through urlparams
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
