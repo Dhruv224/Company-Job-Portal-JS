@@ -29,7 +29,7 @@ form.addEventListener("submit", (event) => {
     return;
   }
 
-  let uniqueId = (users.length > 0) ? ++(users[users.length-1].id) : 1;
+  let uniqueId = parseInt((users[users.length-1]?.id || 0) + 1);
 
   let newUser = {
     id: uniqueId,

@@ -6,7 +6,7 @@ let jobs = [
     type: "React.js",
     salary: 60000,
     location: "Remote",
-    companyName: "Google",
+    company: "Google",
     appliedBy:[]
   },
   {
@@ -16,7 +16,7 @@ let jobs = [
     type: "Node.js",
     salary: 70000,
     location: "San Francisco, CA",
-    companyName: "Bacancy",
+    company: "Bacancy",
     appliedBy: [],
   },
   {
@@ -26,7 +26,7 @@ let jobs = [
     type: "Python",
     salary: 15000,
     location: "New York, NY",
-    companyName: "Google",
+    company: "Google",
     appliedBy: [],
   },
   {
@@ -36,7 +36,7 @@ let jobs = [
     type: "Python",
     salary: 25000,
     location: "Remote",
-    companyName: "Bacancy",
+    company: "Bacancy",
     appliedBy: [],
   },
   {
@@ -46,7 +46,7 @@ let jobs = [
     type: "Java",
     salary: 50000,
     location: "Austin, TX",
-    companyName: "Google",
+    company: "Google",
     appliedBy: [],
   },
   {
@@ -56,7 +56,7 @@ let jobs = [
     type: "Java",
     salary: 37000,
     location: "Boston, MA",
-    companyName: "SoftCo",
+    company: "SoftCo",
     appliedBy: [],
   },
   {
@@ -66,7 +66,7 @@ let jobs = [
     type: "Docker",
     salary: 80000,
     location: "Seattle, WA",
-    companyName: "Microsoft",
+    company: "Microsoft",
     appliedBy: [],
   },
   {
@@ -76,7 +76,7 @@ let jobs = [
     type: "Docker",
     salary: 90000,
     location: "San Jose, CA",
-    companyName: "Microsoft",
+    company: "Microsoft",
     appliedBy: [],
   },
   {
@@ -86,7 +86,7 @@ let jobs = [
     type: "React.js",
     salary: 80000,
     location: "Chicago, IL",
-    companyName: "Bacancy",
+    company: "Bacancy",
     appliedBy: [],
   },
   {
@@ -96,12 +96,12 @@ let jobs = [
     type: "Node.js",
     salary: 45000,
     location: "Denver, CO",
-    companyName: "Microsoft",
+    company: "Microsoft",
     appliedBy: [],
   },
 ];
 
-//  localStorage.setItem("jobs", JSON.stringify(jobs));
+ localStorage.setItem("jobs", JSON.stringify(jobs));
 
 document.addEventListener("DOMContentLoaded", (event) => {
   event.preventDefault();
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             <p><span>Type: </span>${job.type}</p>
             <p><span>Salary: </span>Rs.${job.salary}</p>
             <p><span>Location: </span>${job.location}</p>
-            <p><span>Company: </span>${job.companyName}</p>
+            <p><span>Company: </span>${job.company}</p>
         `;
 
     let applyBtn = document.createElement("button");
@@ -268,7 +268,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
           (job.salary >= currMinSalary && job.salary <= currMaxSalary)) &&
         (languageType === "All" || job.type === languageType) &&
         (job.title.toLowerCase().includes(searchQuery) ||
-          job.companyName.toLowerCase().includes(searchQuery) ||
+          job.company.toLowerCase().includes(searchQuery) ||
           job.type.toLowerCase().includes(searchQuery))
       );
     });
@@ -300,7 +300,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let option = document.createElement("option");
     let min = minSalary + i * salaryIncrement;
     let max = min + salaryIncrement;
-    option.textContent = `Rs. ${min} - Rs. ${max}`;
+    option.textContent = `Rs. ${min.toFixed(2)} - Rs. ${max.toFixed(2)}`;
     option.value = `${min},${max}`;
     salaryDropDown.appendChild(option);
   }
